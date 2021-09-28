@@ -1,3 +1,6 @@
+//go:build darwin || linux
+// +build darwin linux
+
 package daemon
 
 import (
@@ -11,9 +14,9 @@ import (
 )
 
 func init() {
-	daemon := flag.Bool("daemon", false, "to run it as a full daemon. only support for linux and mac os.")
+	daemon := flag.Bool("daemon", false, "to run it as a full daemon. only support for linux and mac os")
 	defaultDlogPath := filepath.Base(os.Args[0]) + ".log"
-	dlog := flag.String("dlog", defaultDlogPath, `specify the log daemon path.`)
+	dlog := flag.String("dlog", defaultDlogPath, `specify the daemon log path`)
 	var argNoDaemon []string
 	var dlogParsed bool
 	for n, a := range os.Args {
@@ -32,19 +35,19 @@ func init() {
 				}
 				*dlog = ss[1]
 				dlogParsed = true
-			} else {
-				//dlog 不带等号
-				if n+1 >= len(os.Args) {
-					fmt.Println("dlog parse error. dlog needs an argument. please input the right format. e.g. -dlog=hello.log, --dlog=/home/me/hello.log")
-					os.Exit(1)
-				}
-				if strings.HasPrefix(os.Args[n+1], "-") {
-					fmt.Println("dlog parse error. dlog needs an argument, and dlog can not begin with -.\n\tplease input the right format. e.g. -dlog=hello.log, --dlog=/home/me/hello.log")
-					os.Exit(1)
-				}
-				*dlog = os.Args[n+1]
-				dlogParsed = true
+				continue
 			}
+			// dlog 不带等号
+			if n+1 >= len(os.Args) {
+				fmt.Println("dlog parse error. dlog needs an argument. please input the right format. e.g. -dlog=hello.log, --dlog=/home/me/hello.log")
+				os.Exit(1)
+			}
+			if strings.HasPrefix(os.Args[n+1], "-") {
+				fmt.Println("dlog parse error. dlog needs an argument, and dlog can not begin with -.\n\tplease input the right format. e.g. -dlog=hello.log, --dlog=/home/me/hello.log")
+				os.Exit(1)
+			}
+			*dlog = os.Args[n+1]
+			dlogParsed = true
 		}
 		argNoDaemon = append(argNoDaemon, a)
 	}
