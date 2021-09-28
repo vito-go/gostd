@@ -4,7 +4,7 @@ runs the computer program as a background process.
 
 ## Usage
 
-Just `import _ "gitea.com/liushihao/daemon"` in the program and run with command argument `-daemon`   
+just `import _ "gitea.com/liushihao/daemon"` in the program and run with command argument `-daemon`
 For example:  
 hello_world.go
 
@@ -12,10 +12,11 @@ hello_world.go
 package main
 
 import (
-	_ "gitea.com/liushihao/daemon"
 	"os"
 	"strconv"
 	"time"
+
+	_ "gitea.com/liushihao/daemon"
 )
 
 func main() {
@@ -33,6 +34,6 @@ func main() {
 
 ```shell
 $ go build ./hello_world.go
-./hello_world -daemon
+$ ./hello_world -daemon
 # then you can exit the shell, and hello_world will go on.
 ```
