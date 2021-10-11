@@ -9,13 +9,11 @@ import (
 	"runtime"
 	"strings"
 	"time"
-
-	"gitea.com/liushihao/mylog"
 )
 
 func init() {
 	if runtime.GOOS == "windows" {
-		mylog.Warn("on the windows platform, ignore daemon.")
+		fmt.Println("Warning! on the windows platform, ignore daemon.")
 		return
 	}
 	daemon := flag.Bool("daemon", false, "to run it as a full daemon. only support for linux and mac os")
