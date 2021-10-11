@@ -1,6 +1,3 @@
-//go:build darwin || linux
-// +build darwin linux
-
 package daemon
 
 import (
@@ -9,11 +6,18 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
+
+	"gitea.com/liushihao/mylog"
 )
 
 func init() {
+	if runtime.GOOS == "windows" {
+		mylog.Warn("on the windows platform, ignore daemon.")
+		return
+	}
 	daemon := flag.Bool("daemon", false, "to run it as a full daemon. only support for linux and mac os")
 	defaultDlogPath := filepath.Base(os.Args[0]) + ".log"
 	dlog := flag.String("dlog", defaultDlogPath, `specify the daemon log path`)
