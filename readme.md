@@ -1,5 +1,5 @@
 # 构建一个标准的go项目架构
-
+![avatar](images/gostd.png)
 
 ./gostd/
 ├── **cmd**         
