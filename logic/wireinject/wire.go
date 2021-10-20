@@ -20,10 +20,10 @@ import (
 
 func InitApp(env conf.Env) (*logic.App, error) {
 	wire.Build(conf.NewCfg, handler.NewServer, student.NewApi,
-		logic.NewApp, userinfo.NewAPI, class.NewAPI,
+		logic.NewApp, userinfo.NewTable, class.NewTable,
 		database.NewStudentDB, database.NewTeacherDB,
-		grades.NewAPI,
-		teacher.NewApi, info.NewAPI,
+		grades.NewTable,
+		teacher.NewApi, info.NewTable,
 	)
 	return nil, nil
 }

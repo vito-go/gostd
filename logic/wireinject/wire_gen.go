@@ -30,17 +30,17 @@ func InitApp(env conf.Env) (*logic.App, error) {
 	if err != nil {
 		return nil, err
 	}
-	api := grades.NewAPI(studentDB)
-	userinfoAPI := userinfo.NewAPI(studentDB)
-	classAPI := class.NewAPI(studentDB)
-	studentAPI := student.NewApi(api, userinfoAPI, classAPI)
-	server := handler.NewServer(studentAPI)
+	table := grades.NewTable(studentDB)
+	userinfoTable := userinfo.NewTable(studentDB)
+	classTable := class.NewTable(studentDB)
+	api := student.NewApi(table, userinfoTable, classTable)
 	teacherDB, err := database.NewTeacherDB(cfg)
 	if err != nil {
 		return nil, err
 	}
-	infoAPI := info.NewAPI(teacherDB)
+	infoAPI := info.NewTable(teacherDB)
 	teacherAPI := teacher.NewApi(infoAPI)
-	app := logic.NewApp(cfg, server, studentAPI, teacherAPI)
+	server := handler.NewServer(api, teacherAPI)
+	app := logic.NewApp(cfg, server, api, teacherAPI)
 	return app, nil
 }

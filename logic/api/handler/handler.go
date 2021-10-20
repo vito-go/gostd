@@ -7,19 +7,21 @@ import (
 	"gitea.com/liushihao/mylog"
 
 	"gitea.com/liushihao/gostd/internal/data/api/student"
+	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/logic/api/handler/file"
 )
 
 type Server struct {
-	serverMux *http.ServeMux
-	stu       *student.API
+	serverMux  *http.ServeMux
+	stu        *student.API
+	teacherAPi *teacher.API
 }
 
 func (s *Server) ServerMux() *http.ServeMux {
 	return s.serverMux
 }
-func NewServer(stu *student.API) *Server {
-	s := &Server{serverMux: http.NewServeMux(), stu: stu}
+func NewServer(stu *student.API, teacherAPi *teacher.API) *Server {
+	s := &Server{serverMux: http.NewServeMux(), stu: stu, teacherAPi: teacherAPi}
 	s.initHandler()
 	return s
 }

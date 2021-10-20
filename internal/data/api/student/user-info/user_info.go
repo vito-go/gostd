@@ -8,7 +8,7 @@ type Table struct {
 	db *database.StudentDB
 }
 
-func NewAPI(db *database.StudentDB) *Table {
+func NewTable(db *database.StudentDB) *Table {
 	return &Table{db: db}
 }
 

@@ -10,6 +10,6 @@ func (A *API) GetInfoByID(id int64) {
 	panic("implement me")
 }
 
-func NewAPI(db *database.TeacherDB) *API {
+func NewTable(db *database.TeacherDB) *API {
 	return &API{db: db}
 }

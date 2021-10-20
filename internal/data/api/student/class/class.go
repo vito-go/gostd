@@ -12,6 +12,6 @@ func (A Table) GetNameByID(id int64) string {
 	panic("implement me")
 }
 
-func NewAPI(db *database.StudentDB) *Table {
+func NewTable(db *database.StudentDB) *Table {
 	return &Table{db: db}
 }

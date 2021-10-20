@@ -18,7 +18,7 @@ func NewFile(s *student.API) *File {
 	return &File{studentAip: s}
 }
 func (f *File) Hello(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(f.studentAip.UserInfoIface.Hello()))
+	w.Write([]byte(f.studentAip.UserInfoClientAPI.Hello()))
 }
 func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
@@ -33,12 +33,12 @@ func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		userInfo = f.studentAip.UserInfoIface.GetUserInfoByID(idInt)
+		userInfo = f.studentAip.UserInfoClientAPI.GetUserInfoByID(idInt)
 	}()
 	wg.Add(1) // 千万不要不写否则无法捕获goroutine的panic
 	go func() {
 		defer wg.Done()
-		grades = f.studentAip.GradesIface.GetTotalGradesByID(idInt)
+		grades = f.studentAip.GradesClientAPI.GetTotalGradesByID(idInt)
 	}()
 	wg.Wait()
 	w.Write([]byte(fmt.Sprintln(userInfo, grades)))

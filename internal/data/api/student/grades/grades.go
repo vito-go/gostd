@@ -16,6 +16,6 @@ func (a *Table) GetTotalGradesByID(id int64) int64 {
 	return id * id
 }
 
-func NewAPI(db *database.StudentDB) *Table {
+func NewTable(db *database.StudentDB) *Table {
 	return &Table{db: db}
 }

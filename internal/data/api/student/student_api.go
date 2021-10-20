@@ -7,11 +7,11 @@ import (
 )
 
 type API struct {
-	GradesIface   grades.Interface
-	UserInfoIface userinfo.Interface
-	ClassIface    class.Interface
+	GradesClientAPI   grades.Interface
+	UserInfoClientAPI userinfo.Interface
+	ClassClientAPI    class.Interface
 }
 
 func NewApi(g *grades.Table, u *userinfo.Table, c *class.Table) *API {
-	return &API{GradesIface: g, UserInfoIface: u, ClassIface: c}
+	return &API{GradesClientAPI: g, UserInfoClientAPI: u, ClassClientAPI: c}
 }
