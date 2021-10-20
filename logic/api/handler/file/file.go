@@ -38,7 +38,7 @@ func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 	wg.Add(1) // 千万不要不写否则无法捕获goroutine的panic
 	go func() {
 		defer wg.Done()
-		grades = f.studentAip.G.GetTotalGradesByID(idInt)
+		grades = f.studentAip.GradesIface.GetTotalGradesByID(idInt)
 	}()
 	wg.Wait()
 	w.Write([]byte(fmt.Sprintln(userInfo, grades)))

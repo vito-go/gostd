@@ -1,4 +1,8 @@
 package teacher
 
-type TeacherApi interface {
+type API struct {
+}
+
+func (A API) DBName() string {
+	return "teacher"
 }

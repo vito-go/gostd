@@ -9,10 +9,17 @@ import (
 )
 
 type Cfg struct {
-	HttpAddr string `yaml:"http_addr"`
-	Redis    string
+	HttpAddr   string `yaml:"http_addr"`
+	Redis      string
+	Postgresql pgsql
 }
 type Env string
+type pgsql struct {
+	Host     string
+	Port     int
+	UserName string
+	Password string
+}
 
 func NewCfg(env Env) (*Cfg, error) {
 	b, err := os.ReadFile(string(env))

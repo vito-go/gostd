@@ -8,6 +8,7 @@ package wireinject
 
 import (
 	"gitea.com/liushihao/gostd/internal/data/api/student"
+	"gitea.com/liushihao/gostd/internal/data/api/student/class"
 	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
 	"gitea.com/liushihao/gostd/internal/data/api/student/user-info"
 	"gitea.com/liushihao/gostd/internal/data/database"
@@ -23,10 +24,13 @@ func InitApp(env conf.Env) (*logic.App, error) {
 	if err != nil {
 		return nil, err
 	}
-	db := database.NewDB(cfg)
+	db := database.NewDB(cfg,)
 	api := grades.NewApi(db)
 	userinfoAPI := userinfo.NewAPI(db)
-	studentAPI := student.NewApi(api, userinfoAPI)
+	classAPI := class.NewAPI(db)
+	studentAPI := student.NewApi(api, userinfoAPI, classAPI)
+	db,err = database.NewDB(cfg,studentAPI)
+
 	server := handler.NewServer(studentAPI)
 	app := logic.NewApp(cfg, studentAPI, server)
 	return app, nil
