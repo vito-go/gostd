@@ -10,9 +10,10 @@ import (
 )
 
 type DB struct {
-	cfg    *conf.Cfg
-	dbName string
-	db     *sql.DB
+	cfg        *conf.Cfg
+	dbName     string
+	driverName string
+	db         *sql.DB
 }
 type DBName string
 
@@ -33,4 +34,26 @@ func NewDB(cfg *conf.Cfg, d DBNameIface) (*DB, error) {
 		dbName: "",
 		db:     db,
 	}, nil
+}
+func open(drivrName string, c ConnInfo) (*DB, error) {
+	db, err := sql.Open(drivrName, c.Info())
+
+	if err != nil {
+		return nil, err
+	}
+	return &DB{
+		cfg:    cfg,
+		dbName: "",
+		db:     db,
+	}, nil
+}
+
+type ConnInfo interface {
+	Info() string
+}
+type StudentDB DB
+
+func NewStudentDB(cfg *conf.Cfg) (*StudentDB, error) {
+	db, err := open("postgresql", cfg.Database.Postgresql)
+	return (*StudentDB)(db), err
 }
