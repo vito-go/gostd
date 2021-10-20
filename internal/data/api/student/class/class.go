@@ -1,15 +1,17 @@
 package class
 
-import "gitea.com/liushihao/gostd/internal/data/database"
+import (
+	"gitea.com/liushihao/gostd/internal/data/database"
+)
 
-type API struct {
-	db *database.DB
+type Table struct {
+	db *database.StudentDB
 }
 
-func (A API) GetNameByID(id int64) string {
+func (A Table) GetNameByID(id int64) string {
 	panic("implement me")
 }
 
-func NewAPI(db *database.DB) *API {
-	return &API{db: db}
+func NewAPI(db *database.StudentDB) *Table {
+	return &Table{db: db}
 }

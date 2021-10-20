@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 
 	_ "github.com/lib/pq"
 
@@ -10,50 +9,32 @@ import (
 )
 
 type DB struct {
-	cfg        *conf.Cfg
-	dbName     string
-	driverName string
-	db         *sql.DB
-}
-type DBName string
-
-type DBNameIface interface {
-	DBName() string
+	pgConf *conf.PgConf
+	db     *sql.DB
 }
 
-func NewDB(cfg *conf.Cfg, d DBNameIface) (*DB, error) {
-	db, err := sql.Open("postgresql", fmt.Sprintf(
-		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		cfg.Postgresql.Host, cfg.Postgresql.Port, cfg.Postgresql.UserName, cfg.Postgresql.Password, d.DBName()))
+func open(pgConf *conf.PgConf) (*DB, error) {
+	db, err := sql.Open(pgConf.DriverName, pgConf.Info())
 
 	if err != nil {
 		return nil, err
 	}
 	return &DB{
-		cfg:    cfg,
-		dbName: "",
-		db:     db,
-	}, nil
-}
-func open(drivrName string, c ConnInfo) (*DB, error) {
-	db, err := sql.Open(drivrName, c.Info())
-
-	if err != nil {
-		return nil, err
-	}
-	return &DB{
-		cfg:    cfg,
-		dbName: "",
+		pgConf: pgConf,
 		db:     db,
 	}, nil
 }
 
-type ConnInfo interface {
-	Info() string
-}
 type StudentDB DB
 
 func NewStudentDB(cfg *conf.Cfg) (*StudentDB, error) {
-	db, err := open("postgresql", cfg.Database.Postgresql)
+	db, err := open(cfg.Database.Student)
 	return (*StudentDB)(db), err
+}
+
+type TeacherDB DB
+
+func NewTeacherDB(cfg *conf.Cfg) (*TeacherDB, error) {
+	db, err := open(cfg.Database.Student)
+	return (*TeacherDB)(db), err
 }

@@ -11,6 +11,8 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/student/class"
 	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
 	"gitea.com/liushihao/gostd/internal/data/api/student/user-info"
+	"gitea.com/liushihao/gostd/internal/data/api/teacher"
+	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
 	"gitea.com/liushihao/gostd/internal/data/database"
 	"gitea.com/liushihao/gostd/logic"
 	"gitea.com/liushihao/gostd/logic/api/handler"
@@ -24,14 +26,21 @@ func InitApp(env conf.Env) (*logic.App, error) {
 	if err != nil {
 		return nil, err
 	}
-	db := database.NewDB(cfg,)
-	api := grades.NewApi(db)
-	userinfoAPI := userinfo.NewAPI(db)
-	classAPI := class.NewAPI(db)
+	studentDB, err := database.NewStudentDB(cfg)
+	if err != nil {
+		return nil, err
+	}
+	api := grades.NewAPI(studentDB)
+	userinfoAPI := userinfo.NewAPI(studentDB)
+	classAPI := class.NewAPI(studentDB)
 	studentAPI := student.NewApi(api, userinfoAPI, classAPI)
-	db,err = database.NewDB(cfg,studentAPI)
-
 	server := handler.NewServer(studentAPI)
-	app := logic.NewApp(cfg, studentAPI, server)
+	teacherDB, err := database.NewTeacherDB(cfg)
+	if err != nil {
+		return nil, err
+	}
+	infoAPI := info.NewAPI(teacherDB)
+	teacherAPI := teacher.NewApi(infoAPI)
+	app := logic.NewApp(cfg, server, studentAPI, teacherAPI)
 	return app, nil
 }

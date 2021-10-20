@@ -1,8 +1,13 @@
 package teacher
 
+import (
+	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
+)
+
 type API struct {
+	infoIface info.Interface
 }
 
-func (A API) DBName() string {
-	return "teacher"
+func NewApi(api *info.API) *API {
+	return &API{infoIface: api}
 }
