@@ -6,6 +6,6 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	info := fmt.Sprintf("welcome! 您当前的ip: %serverMux", r.RemoteAddr)
+	info := fmt.Sprintf("welcome! 您当前的ip: %s", r.RemoteAddr)
 	w.Write([]byte(info))
 }

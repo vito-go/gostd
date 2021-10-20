@@ -11,7 +11,7 @@ func (a *API) GetGradesByNameAndId(id int64, name string) {
 }
 
 func (a *API) GetTotalGradesByID(id int64) int64 {
-	return 99
+	return id * id
 }
 
 func NewApi(db *database.DB) *API {

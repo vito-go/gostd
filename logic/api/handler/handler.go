@@ -1,8 +1,10 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
+	"strings"
+
+	"gitea.com/liushihao/mylog"
 
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/logic/api/handler/file"
@@ -21,22 +23,27 @@ func NewServer(stu *student.API) *Server {
 	s.initHandler()
 	return s
 }
+
+// initHandler 初始化handler 都卸载这里面。 handler过多的时候可以适当封装一下.
 func (s *Server) initHandler() {
 	f := file.NewFile(s.stu)
-	s.serverMux.HandleFunc("/", Index)
-	s.serverMux.HandleFunc("/hello", f.Hello)
-	s.serverMux.HandleFunc("/user", f.UserData)
+	s.serverMux.HandleFunc("/", preHandle(Index, logging))
+	s.serverMux.HandleFunc("/hello", preHandle(f.Hello, logging))
+	s.serverMux.HandleFunc("/user", preHandle(f.UserData, logging))
 }
 
-// SafeHandle 可能不需要 自身有捕获
-func SafeHandle(f func(writer http.ResponseWriter, request *http.Request)) func(writer http.ResponseWriter, request *http.Request) {
-	return func(writer http.ResponseWriter, request *http.Request) {
-		defer func() {
-			err := recover()
-			if err != nil {
-				fmt.Println(err)
-			}
-		}()
-		f(writer, request)
+// logging 可能不需要 自身有捕获
+func logging(r *http.Request) {
+	path := r.URL.Path
+	if !strings.HasSuffix(path, ".log") && !strings.HasSuffix(path, "favicon.ico") {
+		mylog.InfoF("%s %s %s", r.RemoteAddr, path, r.PostForm.Encode())
+	}
+}
+func preHandle(handlerFunc http.HandlerFunc, preHandlers ...func(r *http.Request)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		defer handlerFunc(w, r)
+		for _, ph := range preHandlers {
+			ph(r)
+		}
 	}
 }

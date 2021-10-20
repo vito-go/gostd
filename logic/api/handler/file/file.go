@@ -24,7 +24,7 @@ func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 	idInt, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		w.Write([]byte(`<h1>error: id参数不正确，必须为一个数字</h1>`))
 		return
 	}
 	var wg sync.WaitGroup
@@ -41,7 +41,5 @@ func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 		grades = f.studentAip.G.GetTotalGradesByID(idInt)
 	}()
 	wg.Wait()
-	panic("能不能捕获异常")
-
 	w.Write([]byte(fmt.Sprintln(userInfo, grades)))
 }

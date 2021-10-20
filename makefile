@@ -1,5 +1,5 @@
 check:
-	@go build -o tmp/gostd-server ./cmd/server &&rm tmp/gostd-server
+	@go build -o /tmp/gostd-server ./cmd/server && rm /tmp/gostd-server
 fmt:
 	@gofmt -w -s ./
 acp:fmt check
@@ -8,3 +8,7 @@ ifndef m
 else
 	git add . && git commit -m '$(m)'  && git push
 endif
+wire:
+	cd logic/wireinject && wire
+run:
+	go run ./cmd/server
