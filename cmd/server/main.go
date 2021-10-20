@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 
-	"local/gostd/logic"
-	"local/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/logic"
+	"gitea.com/liushihao/gostd/logic/conf"
 )
 
 func main() {
@@ -14,8 +14,7 @@ func main() {
 	// //////////////////
 	app := logic.Init(conf.Env(*env))
 
-	err := app.Start()
-	if err != nil {
+	if err := app.Start(); err != nil {
 		panic(err)
 	}
 }

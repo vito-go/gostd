@@ -1,11 +1,11 @@
 package database
 
-import "local/gostd/logic/conf"
+import "gitea.com/liushihao/gostd/logic/conf"
 
-type Db struct {
+type DB struct {
 	cfg *conf.Cfg
 }
 
-func NewDb(cfg *conf.Cfg) *Db {
-	return &Db{cfg: cfg}
+func NewDB(cfg *conf.Cfg) *DB {
+	return &DB{cfg: cfg}
 }

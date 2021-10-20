@@ -1,15 +1,15 @@
 package student
 
 import (
-	"local/gostd/internal/data/api/student/grades"
-	userinfo "local/gostd/internal/data/api/student/user-info"
+	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
+	userinfo "gitea.com/liushihao/gostd/internal/data/api/student/user-info"
 )
 
-type Api struct {
+type API struct {
 	G grades.Interface
 	U userinfo.Interface
 }
 
-func NewApi(g *grades.Api, u *userinfo.Api) *Api {
-	return &Api{G: g, U: u}
+func NewApi(g *grades.API, u *userinfo.API) *API {
+	return &API{G: g, U: u}
 }

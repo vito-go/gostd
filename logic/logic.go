@@ -6,23 +6,23 @@ import (
 
 	"gitea.com/liushihao/mylog"
 
-	"local/gostd/internal/data/api/student"
-	"local/gostd/internal/data/api/student/grades"
-	userinfo "local/gostd/internal/data/api/student/user-info"
-	"local/gostd/internal/data/database"
-	"local/gostd/logic/api/handler"
-	"local/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/internal/data/api/student"
+	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
+	userinfo "gitea.com/liushihao/gostd/internal/data/api/student/user-info"
+	"gitea.com/liushihao/gostd/internal/data/database"
+	"gitea.com/liushihao/gostd/logic/api/handler"
+	"gitea.com/liushihao/gostd/logic/conf"
 )
 
 type app struct {
 	Cfg         *conf.Cfg
-	HttpHandler *handler.Server
-	StudentApi  *student.Api
+	HTTPHandler *handler.Server
+	StudentAPI  *student.API
 }
 
 // NewApp 需要不断的增加参数.
-func NewApp(cfg *conf.Cfg, studentApi *student.Api, httpHandler *handler.Server) *app {
-	return &app{Cfg: cfg, StudentApi: studentApi, HttpHandler: httpHandler}
+func NewApp(cfg *conf.Cfg, studentApi *student.API, httpHandler *handler.Server) *app {
+	return &app{Cfg: cfg, StudentAPI: studentApi, HTTPHandler: httpHandler}
 }
 
 func Init(env conf.Env) *app {
@@ -35,17 +35,16 @@ func Init(env conf.Env) *app {
 		panic(err)
 	}
 	mylog.Info(string(b))
-	db := database.NewDb(cfg)
-	gradesApi := grades.NewApi(db)
-	userinfoApi := userinfo.NewApi(db)
-	studentApi := student.NewApi(gradesApi, userinfoApi)
-	httpHandler := handler.NewServer(studentApi)
-	return NewApp(cfg, studentApi, httpHandler)
+	db := database.NewDB(cfg)
+	gradesAPI := grades.NewApi(db)
+	userinfoAPI := userinfo.NewAPI(db)
+	studentAPI := student.NewApi(gradesAPI, userinfoAPI)
+	httpHandler := handler.NewServer(studentAPI)
+	return NewApp(cfg, studentAPI, httpHandler)
 }
 func (a *app) Start() error {
 	// 启动各种欧冠你服务
-	return http.ListenAndServe(a.Cfg.HttpAddr, a.HttpHandler.ServerMux())
-
+	return http.ListenAndServe(a.Cfg.HttpAddr, a.HTTPHandler.ServerMux())
 }
 func (a *app) Stop() {
 

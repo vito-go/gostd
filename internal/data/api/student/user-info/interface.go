@@ -1,6 +1,6 @@
 package userinfo
 
 type Interface interface {
-	GetUserInfoById(id int64) *UserInfo
+	GetUserInfoByID(id int64) *UserInfo
 	Hello() string
 }

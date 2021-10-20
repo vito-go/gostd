@@ -1,21 +1,20 @@
 package userinfo
 
-import "local/gostd/internal/data/database"
+import "gitea.com/liushihao/gostd/internal/data/database"
 
-type Api struct {
-	db *database.Db
+type API struct {
+	db *database.DB
 }
 
-func (u Api) Hello() string {
+func (u API) Hello() string {
 	return "hello world"
-
 }
 
-func NewApi(db *database.Db) *Api {
-	return &Api{db: db}
+func NewAPI(db *database.DB) *API {
+	return &API{db: db}
 }
 
-func (u Api) GetUserInfoById(id int64) *UserInfo {
+func (u API) GetUserInfoByID(id int64) *UserInfo {
 	return &UserInfo{Name: "xiaoming"}
 }
 

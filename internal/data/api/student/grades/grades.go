@@ -1,19 +1,19 @@
 package grades
 
-import "local/gostd/internal/data/database"
+import "gitea.com/liushihao/gostd/internal/data/database"
 
-type Api struct {
-	db *database.Db
+type API struct {
+	db *database.DB
 }
 
-func (a *Api) GetGradesByNameAndId(id int64, name string) {
+func (a *API) GetGradesByNameAndId(id int64, name string) {
 	panic("implement me")
 }
 
-func (a *Api) GetTotalGradesById(id int64) int64 {
+func (a *API) GetTotalGradesByID(id int64) int64 {
 	return 99
 }
 
-func NewApi(db *database.Db) *Api {
-	return &Api{db: db}
+func NewApi(db *database.DB) *API {
+	return &API{db: db}
 }

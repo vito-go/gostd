@@ -4,29 +4,30 @@ import (
 	"fmt"
 	"net/http"
 
-	"local/gostd/internal/data/api/student"
-	"local/gostd/logic/api/handler/file"
+	"gitea.com/liushihao/gostd/internal/data/api/student"
+	"gitea.com/liushihao/gostd/logic/api/handler/file"
 )
 
 type Server struct {
-	s   *http.ServeMux
-	stu *student.Api
+	serverMux *http.ServeMux
+	stu       *student.API
 }
 
 func (s *Server) ServerMux() *http.ServeMux {
-	return s.s
+	return s.serverMux
 }
-func NewServer(stu *student.Api) *Server {
-	s := &Server{s: http.NewServeMux()}
-	s.initHandler(stu)
+func NewServer(stu *student.API) *Server {
+	s := &Server{serverMux: http.NewServeMux(), stu: stu}
+	s.initHandler()
 	return s
 }
-func (s *Server) initHandler(stu *student.Api) {
-	f := file.NewFile(stu)
-	s.s.HandleFunc("/", Index)
-	s.s.HandleFunc("/hello", f.Hello)
-	s.s.HandleFunc("/user", f.UserData)
+func (s *Server) initHandler() {
+	f := file.NewFile(s.stu)
+	s.serverMux.HandleFunc("/", Index)
+	s.serverMux.HandleFunc("/hello", f.Hello)
+	s.serverMux.HandleFunc("/user", f.UserData)
 }
+
 // SafeHandle 可能不需要 自身有捕获
 func SafeHandle(f func(writer http.ResponseWriter, request *http.Request)) func(writer http.ResponseWriter, request *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
