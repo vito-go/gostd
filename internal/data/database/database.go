@@ -14,8 +14,11 @@ type DB struct {
 }
 
 func open(pgConf *conf.PgConf) (*DB, error) {
-	db, err := sql.Open(pgConf.DriverName, pgConf.Info())
-
+	db, err := sql.Open(pgConf.DriverName, pgConf.Dsn)
+	if err != nil {
+		return nil, err
+	}
+	err = db.Ping()
 	if err != nil {
 		return nil, err
 	}
@@ -35,6 +38,6 @@ func NewStudentDB(cfg *conf.Cfg) (*StudentDB, error) {
 type TeacherDB DB
 
 func NewTeacherDB(cfg *conf.Cfg) (*TeacherDB, error) {
-	db, err := open(cfg.Database.Student)
+	db, err := open(cfg.Database.Teacher)
 	return (*TeacherDB)(db), err
 }

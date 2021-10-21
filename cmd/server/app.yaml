@@ -1,1 +1,9 @@
 http_addr: :9090
+redis:
+database:
+  student:
+    dsn: "postgres://127.0.0.1:5432/student?sslmode=disable"
+    driver_name: "postgres"
+  teacher:
+    dsn: "postgres://127.0.0.1:5432/teacher?sslmode=disable"
+    driver_name: "postgres"

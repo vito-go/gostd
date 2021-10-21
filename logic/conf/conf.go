@@ -2,7 +2,6 @@ package conf
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 
 	"gitea.com/liushihao/mylog"
@@ -11,27 +10,27 @@ import (
 
 type Env string
 type PgConf struct {
-	DriverName string
-	Host       string
-	Port       int
-	UserName   string
-	Password   string
+	Dsn        string `yaml:"dsn" json:"-"` // 日志不输出Dsn
+	DriverName string `yaml:"driver_name"`
 }
 type database struct {
-	Student *PgConf
-	Teacher *PgConf
-	Class   *PgConf
-}
-type Cfg struct {
-	HttpAddr string `yaml:"http_addr"`
-	Redis    string
-	Database database
+	Student *PgConf `yaml:"student"`
+	Teacher *PgConf `yaml:"teacher"`
+	Class   *PgConf `yaml:"class"`
 }
 
-func (p PgConf) Info() string {
-	return fmt.Sprintf("host=%s port=%d username=%s password=%s disablesll=true",
-		p.Host, p.Port, p.UserName, p.Password)
+type RedisConf struct {
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	UserName string `yaml:"user_name"`
+	Password string `yaml:"password"`
 }
+type Cfg struct {
+	HttpAddr string     `yaml:"http_addr"`
+	Redis    *RedisConf `yaml:"redis"`
+	Database database   `yaml:"database"`
+}
+
 func NewCfg(env Env) (*Cfg, error) {
 	b, err := os.ReadFile(string(env))
 	if err != nil {
