@@ -1,3 +1,6 @@
+gitea.com/liushihao/daemon v0.0.0-20211011103545-62707a448ba8 h1:8xzTpKEXfUQL+ZNyGh//882FnOnTSJ5waeypl9IzA+A=
+gitea.com/liushihao/daemon v0.0.0-20211011103545-62707a448ba8/go.mod h1:mXzdqJGSiq6gYmjHjgwKwAE1TawBuazKQmBWMSM6UrY=
+gitea.com/liushihao/mylog v0.0.0-20211007140657-174ff1c2e4a2/go.mod h1:u6XftZNjxIc02/LCQUBvwCmSLiTMQXot90/mZK9MkO4=
 gitea.com/liushihao/mylog v0.0.0-20211021074848-9bf99349eb89 h1:pPrRcVShRTKOXAtqOzfHRSRHnWXafvPDTqiP48SvdUw=
 gitea.com/liushihao/mylog v0.0.0-20211021074848-9bf99349eb89/go.mod h1:u6XftZNjxIc02/LCQUBvwCmSLiTMQXot90/mZK9MkO4=
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
