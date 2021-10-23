@@ -11,4 +11,4 @@ endif
 wire:
 	cd logic/wireinject && wire
 run:
-	go run ./cmd/server
+	go run ./cmd/server -out
