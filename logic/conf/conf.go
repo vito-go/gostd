@@ -1,10 +1,8 @@
 package conf
 
 import (
-	"encoding/json"
 	"os"
 
-	"gitea.com/liushihao/mylog"
 	"gopkg.in/yaml.v3"
 )
 
@@ -27,6 +25,7 @@ type RedisConf struct {
 }
 type Cfg struct {
 	HttpAddr string     `yaml:"http_addr"`
+	RpcAddr  string     `yaml:"rpc_addr"`
 	Redis    *RedisConf `yaml:"redis"`
 	Database database   `yaml:"database"`
 }
@@ -41,10 +40,6 @@ func NewCfg(env Env) (*Cfg, error) {
 	if err != nil {
 		return nil, err
 	}
-	cfgBytes, err := json.MarshalIndent(&cfg, "", "  ")
-	if err != nil {
-		return nil, err
-	}
-	mylog.Info("config:", string(cfgBytes))
+
 	return &cfg, nil
 }

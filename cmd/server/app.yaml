@@ -1,4 +1,6 @@
 http_addr: :9090
+rpc_addr: :19090
+log_path: ./gostd.log
 redis:
 database:
   student:
