@@ -14,6 +14,7 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
 	"gitea.com/liushihao/gostd/internal/data/database"
+	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
 	"gitea.com/liushihao/gostd/logic"
 	"gitea.com/liushihao/gostd/logic/api/handler"
 	"gitea.com/liushihao/gostd/logic/conf"
@@ -31,9 +32,16 @@ func InitApp(env conf.Env) (*logic.App, error) {
 		return nil, err
 	}
 	table := grades.NewTable(studentDB)
-	userinfoTable := userinfo.NewTable(studentDB)
+	studentdbStudentDB, err := studentdb.NewStudentDB(cfg)
+	if err != nil {
+		return nil, err
+	}
+	userInfoRepo := studentdb.NewUserInfoRepo(studentdbStudentDB)
+	classRepo := studentdb.NewClassRepo(studentdbStudentDB)
+	dao := studentdb.NewStudentDao(cfg, studentdbStudentDB, userInfoRepo, classRepo)
+	cli := userinfo.NewCli(dao)
 	classTable := class.NewTable(studentDB)
-	api := student.NewApi(table, userinfoTable, classTable)
+	api := student.NewApi(table, cli, classTable)
 	teacherDB, err := database.NewTeacherDB(cfg)
 	if err != nil {
 		return nil, err

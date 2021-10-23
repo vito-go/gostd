@@ -13,6 +13,7 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
 	"gitea.com/liushihao/gostd/internal/data/database"
+	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
 	"gitea.com/liushihao/gostd/logic"
 	"gitea.com/liushihao/gostd/logic/api/handler"
 	"gitea.com/liushihao/gostd/logic/conf"
@@ -20,7 +21,8 @@ import (
 
 func InitApp(env conf.Env) (*logic.App, error) {
 	wire.Build(conf.NewCfg, handler.NewServer, student.NewApi,
-		logic.NewApp, userinfo.NewTable, class.NewTable,
+		logic.NewApp, class.NewTable, userinfo.NewCli,
+		studentdb.NewStudentDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo,
 		database.NewStudentDB, database.NewTeacherDB,
 		grades.NewTable,
 		teacher.NewApi, info.NewTable,

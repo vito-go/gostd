@@ -13,3 +13,6 @@ func (A *API) GetInfoByID(id int64) {
 func NewTable(db *database.TeacherDB) *API {
 	return &API{db: db}
 }
+func (A *API) TableName() string {
+	return "info"
+}

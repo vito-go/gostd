@@ -9,11 +9,11 @@ import (
 )
 
 type DB struct {
-	pgConf *conf.PgConf
-	db     *sql.DB
+	pgConf *conf.PgConf // 可以做导出方法
+	DB     *sql.DB
 }
 
-func open(pgConf *conf.PgConf) (*DB, error) {
+func Open(pgConf *conf.PgConf) (*DB, error) {
 	db, err := sql.Open(pgConf.DriverName, pgConf.Dsn)
 	if err != nil {
 		return nil, err
@@ -24,20 +24,20 @@ func open(pgConf *conf.PgConf) (*DB, error) {
 	}
 	return &DB{
 		pgConf: pgConf,
-		db:     db,
+		DB:     db,
 	}, nil
 }
 
 type StudentDB DB
 
 func NewStudentDB(cfg *conf.Cfg) (*StudentDB, error) {
-	db, err := open(cfg.Database.Student)
+	db, err := Open(cfg.Database.Student)
 	return (*StudentDB)(db), err
 }
 
 type TeacherDB DB
 
 func NewTeacherDB(cfg *conf.Cfg) (*TeacherDB, error) {
-	db, err := open(cfg.Database.Teacher)
+	db, err := Open(cfg.Database.Teacher)
 	return (*TeacherDB)(db), err
 }

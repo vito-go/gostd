@@ -32,13 +32,14 @@ func (s *Server) initHandler() {
 	s.serverMux.HandleFunc("/", preHandle(Index, logging))
 	s.serverMux.HandleFunc("/hello", preHandle(f.Hello, logging))
 	s.serverMux.HandleFunc("/user", preHandle(f.UserData, logging))
+	s.serverMux.HandleFunc("/name", preHandle(f.Name, logging))
 }
 
 // logging 可能不需要 自身有捕获
 func logging(r *http.Request) {
 	path := r.URL.Path
 	if !strings.HasSuffix(path, ".log") && !strings.HasSuffix(path, "favicon.ico") {
-		mylog.InfoF("%s %s %s", r.RemoteAddr, path, r.PostForm.Encode())
+		mylog.Infof("%s %s %s", r.RemoteAddr, path, r.PostForm.Encode())
 	}
 }
 func preHandle(handlerFunc http.HandlerFunc, preHandlers ...func(r *http.Request)) http.HandlerFunc {

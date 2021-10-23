@@ -7,11 +7,11 @@ import (
 )
 
 type API struct {
-	GradesClientAPI   grades.Interface
-	UserInfoClientAPI userinfo.Interface
-	ClassClientAPI    class.Interface
+	GradesCliAPI   grades.Interface
+	UserInfoCliAPI userinfo.Interface
+	ClassCliAPI    class.Interface
 }
 
-func NewApi(g *grades.Table, u *userinfo.Table, c *class.Table) *API {
-	return &API{GradesClientAPI: g, UserInfoClientAPI: u, ClassClientAPI: c}
+func NewApi(g *grades.Table, u *userinfo.Cli, c *class.Table) *API {
+	return &API{GradesCliAPI: g, UserInfoCliAPI: u, ClassCliAPI: c}
 }
