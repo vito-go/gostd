@@ -23,7 +23,7 @@ import (
 func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 	wire.Build(handler.NewServer, student.NewApi,
 		logic.NewApp, class.NewCli, userinfo.NewCli,
-		grades.NewTable, myrpc.NewServer,
+		grades.NewCli, myrpc.NewServer,
 		teacher.NewApi, info.NewCli,
 		studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo,
 		teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo,

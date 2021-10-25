@@ -20,14 +20,7 @@ func NewCli(dao *studentdb.Dao) *Cli {
 	return &Cli{dao: dao}
 }
 
-func (c *Cli) GetNameById(id int64) (string, error) {
-	return c.getNameById(id)
-}
 func (c *Cli) GetUserInfoMapByID(id int64) (map[string]string, error) {
-	return c.getUserInfoMapByID(id)
-}
-
-func (c *Cli) getUserInfoMapByID(id int64) (map[string]string, error) {
 	m, err := c.dao.UserInfoRepo.GetInfoById(context.Background(), id)
 	if err != nil {
 		return nil, err
@@ -48,7 +41,7 @@ func (c *Cli) getUserInfoMapByID(id int64) (map[string]string, error) {
 	return result, err
 
 }
-func (c *Cli) getNameById(id int64) (string, error) {
+func (c *Cli) GetNameById(id int64) (string, error) {
 	m, err := c.dao.UserInfoRepo.GetInfoById(context.Background(), id)
 	if err != nil {
 		return "", err

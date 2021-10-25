@@ -16,6 +16,6 @@ func (a *Cli) GetTotalGradesByID(id int64) int64 {
 	return id * id
 }
 
-func NewTable(dao *studentdb.Dao) *Cli {
+func NewCli(dao *studentdb.Dao) *Cli {
 	return &Cli{db: dao}
 }

@@ -8,7 +8,7 @@ func NewClassRepo(db *studentDB) *classRepo {
 	return &classRepo{db: db}
 }
 
-const ClassTableName = "user_info"
+const ClassTableName = "class"
 
 type ClassModel struct {
 	ID       int64

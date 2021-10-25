@@ -31,7 +31,7 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 	userInfoRepo := studentdb.NewUserInfoRepo(studentDB)
 	classRepo := studentdb.NewClassRepo(studentDB)
 	dao := studentdb.NewDao(cfg, studentDB, userInfoRepo, classRepo)
-	cli := grades.NewTable(dao)
+	cli := grades.NewCli(dao)
 	userinfoCli := userinfo.NewCli(dao)
 	classCli := class.NewCli(dao)
 	api := student.NewApi(cli, userinfoCli, classCli)
