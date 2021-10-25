@@ -9,15 +9,15 @@ import (
 )
 
 type Cli struct {
-	db *studentdb.Dao
+	dao *studentdb.Dao
 }
 
 func (c *Cli) Hello() string {
 	return "hello world"
 }
 
-func NewCli(db *studentdb.Dao) *Cli {
-	return &Cli{db: db}
+func NewCli(dao *studentdb.Dao) *Cli {
+	return &Cli{dao: dao}
 }
 
 func (c *Cli) GetNameById(id int64) (string, error) {
@@ -28,7 +28,7 @@ func (c *Cli) GetUserInfoMapByID(id int64) (map[string]string, error) {
 }
 
 func (c *Cli) getUserInfoMapByID(id int64) (map[string]string, error) {
-	m, err := c.db.UserInfoRepo.GetInfoById(context.Background(), id)
+	m, err := c.dao.UserInfoRepo.GetInfoById(context.Background(), id)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *Cli) getUserInfoMapByID(id int64) (map[string]string, error) {
 
 }
 func (c *Cli) getNameById(id int64) (string, error) {
-	m, err := c.db.UserInfoRepo.GetInfoById(context.Background(), id)
+	m, err := c.dao.UserInfoRepo.GetInfoById(context.Background(), id)
 	if err != nil {
 		return "", err
 	}

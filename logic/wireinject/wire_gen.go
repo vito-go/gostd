@@ -13,8 +13,8 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/student/user-info"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
-	"gitea.com/liushihao/gostd/internal/data/database"
 	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
+	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
 	"gitea.com/liushihao/gostd/logic"
 	"gitea.com/liushihao/gostd/logic/api/handler"
 	"gitea.com/liushihao/gostd/logic/api/myrpc"
@@ -24,27 +24,25 @@ import (
 // Injectors from wire.go:
 
 func InitApp(cfg *conf.Cfg) (*logic.App, error) {
-	studentDB, err := database.NewStudentDB(cfg)
+	studentDB, err := studentdb.NewStudentDB(cfg)
 	if err != nil {
 		return nil, err
 	}
-	table := grades.NewTable(studentDB)
-	studentdbStudentDB, err := studentdb.NewStudentDB(cfg)
+	userInfoRepo := studentdb.NewUserInfoRepo(studentDB)
+	classRepo := studentdb.NewClassRepo(studentDB)
+	dao := studentdb.NewDao(cfg, studentDB, userInfoRepo, classRepo)
+	cli := grades.NewTable(dao)
+	userinfoCli := userinfo.NewCli(dao)
+	classCli := class.NewCli(dao)
+	api := student.NewApi(cli, userinfoCli, classCli)
+	teacherDB, err := teacherdb.NewTeacherDB(cfg)
 	if err != nil {
 		return nil, err
 	}
-	userInfoRepo := studentdb.NewUserInfoRepo(studentdbStudentDB)
-	classRepo := studentdb.NewClassRepo(studentdbStudentDB)
-	dao := studentdb.NewStudentDao(cfg, studentdbStudentDB, userInfoRepo, classRepo)
-	cli := userinfo.NewCli(dao)
-	classTable := class.NewTable(studentDB)
-	api := student.NewApi(table, cli, classTable)
-	teacherDB, err := database.NewTeacherDB(cfg)
-	if err != nil {
-		return nil, err
-	}
-	infoAPI := info.NewTable(teacherDB)
-	teacherAPI := teacher.NewApi(infoAPI)
+	infoRepo := teacherdb.NewInfoRepo(teacherDB)
+	teacherdbDao := teacherdb.NewDao(cfg, teacherDB, infoRepo)
+	infoCli := info.NewCli(teacherdbDao)
+	teacherAPI := teacher.NewApi(infoCli)
 	server := handler.NewServer(api, teacherAPI)
 	myrpcServer := myrpc.NewServer(cfg)
 	app := logic.NewApp(cfg, server, api, teacherAPI, myrpcServer)

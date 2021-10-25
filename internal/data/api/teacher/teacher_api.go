@@ -5,9 +5,9 @@ import (
 )
 
 type API struct {
-	infoIface info.Interface
+	infoCliAPI info.Interface
 }
 
-func NewApi(api *info.API) *API {
-	return &API{infoIface: api}
+func NewApi(api *info.Cli) *API {
+	return &API{infoCliAPI: api}
 }

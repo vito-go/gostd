@@ -12,6 +12,6 @@ type API struct {
 	ClassCliAPI    class.Interface
 }
 
-func NewApi(g *grades.Table, u *userinfo.Cli, c *class.Table) *API {
+func NewApi(g *grades.Cli, u *userinfo.Cli, c *class.Cli) *API {
 	return &API{GradesCliAPI: g, UserInfoCliAPI: u, ClassCliAPI: c}
 }

@@ -1,18 +1,20 @@
 package info
 
-import "gitea.com/liushihao/gostd/internal/data/database"
+import (
+	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
+)
 
-type API struct {
-	db *database.TeacherDB
+type Cli struct {
+	dao *teacherdb.Dao
 }
 
-func (A *API) GetInfoByID(id int64) {
+func (A *Cli) GetInfoByID(id int64) {
 	panic("implement me")
 }
 
-func NewTable(db *database.TeacherDB) *API {
-	return &API{db: db}
+func NewCli(dao *teacherdb.Dao) *Cli {
+	return &Cli{dao: dao}
 }
-func (A *API) TableName() string {
+func (A *Cli) TableName() string {
 	return "info"
 }

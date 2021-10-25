@@ -1,17 +1,17 @@
 package class
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/database"
+	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
 )
 
-type Table struct {
-	db *database.StudentDB
+type Cli struct {
+	dao *studentdb.Dao
 }
 
-func (A Table) GetNameByID(id int64) string {
+func (A Cli) GetNameByID(id int64) string {
 	panic("implement me")
 }
 
-func NewTable(db *database.StudentDB) *Table {
-	return &Table{db: db}
+func NewCli(db *studentdb.Dao) *Cli {
+	return &Cli{dao: db}
 }

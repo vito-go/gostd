@@ -13,8 +13,8 @@ type Dao struct {
 	// 各种表
 }
 
-func NewStudentDao(cfg *conf.Cfg, DB *studentDB, userInfoRepo *userInfoRepo, classRepo *classRepo) *Dao {
-	return &Dao{cfg: cfg, db: DB, UserInfoRepo: userInfoRepo, ClassRepo: classRepo}
+func NewDao(cfg *conf.Cfg, db *studentDB, userInfoRepo *userInfoRepo, classRepo *classRepo) *Dao {
+	return &Dao{cfg: cfg, db: db, UserInfoRepo: userInfoRepo, ClassRepo: classRepo}
 }
 
 type studentDB database.DB
