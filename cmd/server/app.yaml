@@ -1,11 +1,24 @@
-http_addr: :9090
-rpc_addr: :19090
+http_server:
+  port: 9090
+  read_timeout: 0
+  read_header_timeout: 0
+  write_timeout: 0
+  idle_timeout: 0
+  max_header_bytes: 0
+rpc_server:
+  port: 19090
 log_path: ./gostd.log
 redis:
+  port: 6379
+  user_name: ""
+  password: ""
 database:
   student:
     dsn: "postgres://127.0.0.1:5432/student?sslmode=disable"
     driver_name: "postgres"
   teacher:
     dsn: "postgres://127.0.0.1:5432/teacher?sslmode=disable"
+    driver_name: "postgres"
+  class:
+    dsn: "postgres://127.0.0.1:5432/class?sslmode=disable"
     driver_name: "postgres"

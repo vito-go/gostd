@@ -3,6 +3,8 @@ gitea.com/liushihao/daemon v0.0.0-20211011103545-62707a448ba8/go.mod h1:mXzdqJGS
 gitea.com/liushihao/mylog v0.0.0-20211007140657-174ff1c2e4a2/go.mod h1:u6XftZNjxIc02/LCQUBvwCmSLiTMQXot90/mZK9MkO4=
 gitea.com/liushihao/mylog v0.0.0-20211021074848-9bf99349eb89 h1:pPrRcVShRTKOXAtqOzfHRSRHnWXafvPDTqiP48SvdUw=
 gitea.com/liushihao/mylog v0.0.0-20211021074848-9bf99349eb89/go.mod h1:u6XftZNjxIc02/LCQUBvwCmSLiTMQXot90/mZK9MkO4=
+gitea.com/liushihao/mylog v0.0.0-20211028023905-f0be4f9888bf h1:7V9E4LWcayQxdTDUNivCJuv7eYBAXZncdpGG4d99joU=
+gitea.com/liushihao/mylog v0.0.0-20211028023905-f0be4f9888bf/go.mod h1:u6XftZNjxIc02/LCQUBvwCmSLiTMQXot90/mZK9MkO4=
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
 github.com/google/subcommands v1.0.1/go.mod h1:ZjhPrFU+Olkh9WazFPsl27BQ4UPiG37m3yTrtFlrHVk=
 github.com/google/wire v0.5.0 h1:I7ELFeVBr3yfPIcc8+MWvrjk+3VjbcSzoXm3JVa+jD8=

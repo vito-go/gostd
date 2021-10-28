@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"net/rpc"
+	"sync"
 
 	"gitea.com/liushihao/mylog"
 
@@ -13,12 +14,15 @@ import (
 
 type Server struct {
 	cfg    *conf.Cfg
+	wg     *sync.WaitGroup
+	lis    net.Listener
 	server *rpc.Server
 }
 
 func NewServer(cfg *conf.Cfg) *Server {
 	return &Server{
 		cfg:    cfg,
+		wg:     new(sync.WaitGroup),
 		server: rpc.NewServer(),
 	}
 }
@@ -29,30 +33,37 @@ func (s *Server) Start(rcvs ...interface{}) error {
 	if len(rcvs) == 0 {
 		return errors.New("rpc注册方法为空")
 	}
-	if s.cfg.RpcAddr == "" {
-		return errors.New("rpc服务监听地址为空")
-
-	}
 	for _, r := range rcvs {
 		err := s.server.Register(r)
 		if err != nil {
-			return fmt.Errorf("%+v rpc方法注册失败！%w", r, err)
+			return fmt.Errorf("rpc方法注册失败！receiver %+v err: %w", r, err)
 		}
 	}
-	lis, err := net.Listen("tcp", s.cfg.RpcAddr)
+
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", s.cfg.RpcServer.Port))
 	if err != nil {
 		return err
 	}
-	go func() {
-		for {
-			conn, err := lis.Accept()
-			if err != nil {
-				mylog.Errorf("rpc服务结束！rpc.Serve: accept: %s", err.Error())
-				return
-			}
-			mylog.Infof("rpc.Serve: accept: %s", conn.RemoteAddr())
-			go s.server.ServeConn(conn)
+	s.lis = lis
+	for {
+
+		conn, err := lis.Accept()
+		if err != nil {
+			mylog.Errorf("rpc服务结束！rpc.Serve: accept: %s", err.Error())
+			return err
 		}
-	}()
-	return nil
+		mylog.Infof("rpc.Serve: accept: %s", conn.RemoteAddr())
+		s.wg.Add(1)
+		go func() {
+			defer s.wg.Done()
+			s.server.ServeConn(conn)
+		}()
+	}
+}
+func (s *Server) Stop() {
+	if s.lis != nil {
+		s.lis.Close()
+	}
+
+	s.wg.Wait()
 }

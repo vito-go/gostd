@@ -15,18 +15,26 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
 	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
 	"gitea.com/liushihao/gostd/logic"
-	"gitea.com/liushihao/gostd/logic/api/handler"
+	"gitea.com/liushihao/gostd/logic/api/httpserver"
 	"gitea.com/liushihao/gostd/logic/api/myrpc"
 	"gitea.com/liushihao/gostd/logic/conf"
 )
 
 func InitApp(cfg *conf.Cfg) (*logic.App, error) {
-	wire.Build(handler.NewServer, student.NewApi,
-		logic.NewApp, class.NewCli, userinfo.NewCli,
-		grades.NewCli, myrpc.NewServer,
-		teacher.NewApi, info.NewCli,
-		studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo,
-		teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo,
+	wire.Build(httpserver.NewServer,
+		logic.NewApp,
+		myrpc.NewServer,
+		teacherProviders,
+		studentProviders,
 	)
 	return nil, nil
 }
+
+var teacherProviders = wire.NewSet(
+	teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo,
+	teacher.NewApi, info.NewCli,
+)
+var studentProviders = wire.NewSet(studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo,
+	studentdb.NewClassRepo,
+	grades.NewCli, class.NewCli, userinfo.NewCli, student.NewApi,
+)

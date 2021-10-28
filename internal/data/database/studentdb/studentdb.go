@@ -1,6 +1,8 @@
 package studentdb
 
 import (
+	"fmt"
+
 	"gitea.com/liushihao/gostd/internal/data/database"
 	"gitea.com/liushihao/gostd/logic/conf"
 )
@@ -21,5 +23,8 @@ type studentDB database.DB
 
 func NewStudentDB(cfg *conf.Cfg) (*studentDB, error) {
 	db, err := database.Open(cfg.Database.Student)
-	return (*studentDB)(db), err
+	if err != nil {
+		return nil, fmt.Errorf("student库链接失败！ err:%w", err)
+	}
+	return (*studentDB)(db), nil
 }

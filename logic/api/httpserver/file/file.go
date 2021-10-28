@@ -10,7 +10,7 @@ import (
 
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/dberr"
-	"gitea.com/liushihao/gostd/logic/api/handler/resp"
+	"gitea.com/liushihao/gostd/logic/api/httpserver/resp"
 )
 
 type File struct {
