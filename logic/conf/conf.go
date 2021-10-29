@@ -6,12 +6,14 @@ import (
 	"os"
 	"reflect"
 
+	"gitea.com/liushihao/gostd/logic/mylog"
+
 	"gopkg.in/yaml.v3"
 )
 
 type Env string
 
-// Cfg 配置文件. *Cfg后字段的值可以不用指针了. 基础类型需要加指针才能取出空判断.
+// Cfg 配置文件. *Cfg后字段的值可以不用指针了. 可以添加required tag字段，设为false则跳过空值检查.
 type Cfg struct {
 	HTTPServer httpServer `yaml:"http_server" json:"http_server"`
 	RPCServer  rpcServer  `yaml:"rpc_server" json:"rpc_server"`
@@ -78,9 +80,10 @@ type database struct {
 }
 
 type redisConf struct {
-	Port     int     `yaml:"port" json:"port"`
-	UserName *string `yaml:"user_name" json:"user_name"`
-	Password *string `yaml:"password" json:"password"`
+	DB       *int   `yaml:"db" json:"db"`
+	Port     int    `yaml:"port" json:"port"`
+	UserName string `yaml:"user_name" json:"user_name" required:"false"`
+	Password string `yaml:"password" json:"password" required:"false"`
 }
 
 // checkRequired 检验配置文件各个字段不能为空. str必须为一个结构体类型.
@@ -97,7 +100,13 @@ func checkZeroValue(str interface{}) error {
 				return err
 			}
 		}
+
 		if v.Field(k).IsZero() {
+			required := t.Field(k).Tag.Get("required")
+			if required == "false" {
+				mylog.Warnf(" %+v %+v is zero, 但根据校验规则，required为false.跳过检查.", t, t.Field(k).Name)
+				continue
+			}
 			return fmt.Errorf("%+v %+v can not be zero", t, t.Field(k).Name)
 		}
 	}

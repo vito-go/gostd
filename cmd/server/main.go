@@ -9,13 +9,11 @@ import (
 	"syscall"
 	"time"
 
-	"gitea.com/liushihao/mylog"
-
-	_ "gitea.com/liushihao/daemon"
-
-	"gitea.com/liushihao/gostd/logic/api/httpserver"
-	"gitea.com/liushihao/gostd/logic/api/myrpc"
 	"gitea.com/liushihao/gostd/logic/conf"
+	_ "gitea.com/liushihao/gostd/logic/daemon"
+	"gitea.com/liushihao/gostd/logic/httpserver"
+	"gitea.com/liushihao/gostd/logic/mylog"
+	"gitea.com/liushihao/gostd/logic/myrpc"
 	"gitea.com/liushihao/gostd/logic/wireinject"
 )
 

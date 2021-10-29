@@ -13,12 +13,13 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/student/user-info"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
+	"gitea.com/liushihao/gostd/internal/data/conn"
 	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
 	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
 	"gitea.com/liushihao/gostd/logic"
-	"gitea.com/liushihao/gostd/logic/api/httpserver"
-	"gitea.com/liushihao/gostd/logic/api/myrpc"
 	"gitea.com/liushihao/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/logic/httpserver"
+	"gitea.com/liushihao/gostd/logic/myrpc"
 	"github.com/google/wire"
 )
 
@@ -44,7 +45,11 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 	teacherdbDao := teacherdb.NewDao(cfg, teacherDB, infoRepo)
 	infoCli := info.NewCli(teacherdbDao)
 	teacherAPI := teacher.NewApi(infoCli)
-	server := httpserver.NewServer(cfg, api, teacherAPI)
+	client, err := conn.NewRedisClient(cfg)
+	if err != nil {
+		return nil, err
+	}
+	server := httpserver.NewServer(cfg, api, teacherAPI, client)
 	myrpcServer := myrpc.NewServer(cfg)
 	app := logic.NewApp(cfg, server, api, teacherAPI, myrpcServer)
 	return app, nil
@@ -52,6 +57,6 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 
 // wire.go:
 
-var teacherProviders = wire.NewSet(teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo, teacher.NewApi, info.NewCli)
+var studentProviders = wire.NewSet(student.NewAPI, studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo, grades.NewCli, class.NewCli, userinfo.NewCli)
 
-var studentProviders = wire.NewSet(studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo, grades.NewCli, class.NewCli, userinfo.NewCli, student.NewAPI)
+var teacherProviders = wire.NewSet(teacher.NewApi, teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo, info.NewCli)

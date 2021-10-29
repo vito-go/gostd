@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"gitea.com/liushihao/mylog"
+	"gitea.com/liushihao/gostd/logic/mylog"
 )
 
 const (

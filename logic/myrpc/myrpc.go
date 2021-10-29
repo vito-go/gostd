@@ -8,9 +8,8 @@ import (
 	"net/rpc"
 	"sync"
 
-	"gitea.com/liushihao/mylog"
-
 	"gitea.com/liushihao/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/logic/mylog"
 )
 
 type Server struct {

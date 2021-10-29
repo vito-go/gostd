@@ -9,6 +9,7 @@ rpc_server:
   port: 19090
 log_path: ./gostd.log
 redis:
+  db: 0
   port: 6379
   user_name: ""
   password: ""

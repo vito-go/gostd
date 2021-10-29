@@ -7,23 +7,26 @@ import (
 	"strings"
 	"time"
 
-	"gitea.com/liushihao/mylog"
+	"github.com/go-redis/redis/v8"
+
+	"gitea.com/liushihao/gostd/logic/httpserver/file"
+	"gitea.com/liushihao/gostd/logic/mylog"
 
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
-	"gitea.com/liushihao/gostd/logic/api/httpserver/file"
 	"gitea.com/liushihao/gostd/logic/conf"
 )
 
 type Server struct {
 	cfg        *conf.Cfg
 	srv        *http.Server
+	redisCli   *redis.Client
 	serverMux  *http.ServeMux
 	stu        *student.API
 	teacherAPI *teacher.API
 }
 
-func NewServer(cfg *conf.Cfg, stu *student.API, teacherAPI *teacher.API) *Server {
+func NewServer(cfg *conf.Cfg, stu *student.API, teacherAPI *teacher.API, redisCli *redis.Client) *Server {
 	serverMux := http.NewServeMux()
 	srv := http.Server{
 		Addr:              fmt.Sprintf(":%d", cfg.HTTPServer.Port),
@@ -34,13 +37,13 @@ func NewServer(cfg *conf.Cfg, stu *student.API, teacherAPI *teacher.API) *Server
 		IdleTimeout:       time.Duration(*cfg.HTTPServer.IdleTimeout),
 		MaxHeaderBytes:    *cfg.HTTPServer.MaxHeaderBytes,
 	}
-	s := &Server{cfg: cfg, srv: &srv, serverMux: serverMux, stu: stu, teacherAPI: teacherAPI}
+	s := &Server{cfg: cfg, srv: &srv, serverMux: serverMux, stu: stu, teacherAPI: teacherAPI, redisCli: redisCli}
 	return s
 }
 
 func (s *Server) Start() error {
-	f := file.NewFile(s.stu)
-	// 初始化handler 都卸载这里面。 handler过多的时候可以适当封装一下.
+	f := file.NewFile(s.stu, s.redisCli)
+	// start启动的时候 显示的指明加载的路由地址及handler函数
 	s.serverMux.HandleFunc("/", preHandle(Index, logging))
 	s.serverMux.HandleFunc("/hello", preHandle(f.Hello, logging))
 	s.serverMux.HandleFunc("/user", preHandle(f.UserData, logging))

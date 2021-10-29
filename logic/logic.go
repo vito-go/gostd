@@ -1,12 +1,11 @@
 package logic
 
 import (
-	"gitea.com/liushihao/gostd/logic/api/httpserver"
-
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
-	"gitea.com/liushihao/gostd/logic/api/myrpc"
 	"gitea.com/liushihao/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/logic/httpserver"
+	"gitea.com/liushihao/gostd/logic/myrpc"
 )
 
 type App struct {
@@ -21,12 +20,4 @@ type App struct {
 func NewApp(cfg *conf.Cfg, httpHandler *httpserver.Server, studentApi *student.API, teacherAPI *teacher.API,
 	rpcServer *myrpc.Server) *App {
 	return &App{Cfg: cfg, StudentAPI: studentApi, HTTPServer: httpHandler, TeacherAPI: teacherAPI, RpcServer: rpcServer}
-}
-
-type Apple struct {
-}
-
-func (Apple) Add(a int, result *int) (err error) {
-	*result += a
-	return
 }

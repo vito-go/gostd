@@ -1,29 +1,37 @@
 package file
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strconv"
 	"sync"
 
-	"gitea.com/liushihao/mylog"
+	"gitea.com/liushihao/gostd/logic/httpserver/resp"
+	"gitea.com/liushihao/gostd/logic/mylog"
+
+	"github.com/go-redis/redis/v8"
 
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/dberr"
-	"gitea.com/liushihao/gostd/logic/api/httpserver/resp"
 )
 
 type File struct {
 	studentAPI *student.API
+	redisCli   *redis.Client
 }
 
-func NewFile(s *student.API) *File {
-	return &File{studentAPI: s}
+func NewFile(s *student.API, redisCli *redis.Client) *File {
+	return &File{studentAPI: s, redisCli: redisCli}
 }
 func (f *File) Hello(w http.ResponseWriter, r *http.Request) {
-	_, _ = w.Write([]byte(f.studentAPI.UserInfoCliAPI.Hello()))
+	s := f.studentAPI.UserInfoCliAPI.Hello()
+	_, _ = w.Write([]byte(fmt.Sprintf("<h1>%s</h1>", s)))
 }
 func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
+	// 调用redis
+	fake := f.redisCli.Get(context.Background(), "fake")
+	_ = fake
 	id := r.FormValue("id")
 	idInt, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
