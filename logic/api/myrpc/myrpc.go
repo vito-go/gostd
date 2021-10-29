@@ -1,6 +1,7 @@
 package myrpc
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -46,7 +47,6 @@ func (s *Server) Start(rcvs ...interface{}) error {
 	}
 	s.lis = lis
 	for {
-
 		conn, err := lis.Accept()
 		if err != nil {
 			mylog.Errorf("rpc服务结束！rpc.Serve: accept: %s", err.Error())
@@ -60,10 +60,20 @@ func (s *Server) Start(rcvs ...interface{}) error {
 		}()
 	}
 }
-func (s *Server) Stop() {
+func (s *Server) Stop(ctx context.Context) error {
 	if s.lis != nil {
-		s.lis.Close()
+		if err := s.lis.Close(); err != nil {
+			return err
+		}
 	}
-
-	s.wg.Wait()
+	c := make(chan struct{})
+	go func() {
+		s.wg.Wait() // 等待所有的grpc链接处理完毕
+		c <- struct{}{}
+	}()
+	select {
+	case <-c:
+	case <-ctx.Done():
+	}
+	return ctx.Err()
 }

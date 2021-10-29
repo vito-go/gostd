@@ -81,16 +81,24 @@ func safeExit(chanExit chan struct{}, httpSrv *httpserver.Server, rpcSrv *myrpc.
 		defer cancel()
 		gracefulStopChan := make(chan struct{})
 		go func() {
+			defer func() {
+				gracefulStopChan <- struct{}{}
+			}()
 			if err := httpSrv.Stop(ctx); err != nil {
 				mylog.Errorf("httpServer stop failed. err: %s", err)
+				return
 			}
 			mylog.Info("httpServer has gracefully stopped")
-			gracefulStopChan <- struct{}{}
 		}()
 		go func() {
-			rpcSrv.Stop()
+			defer func() {
+				gracefulStopChan <- struct{}{}
+			}()
+			if err := rpcSrv.Stop(ctx); err != nil {
+				mylog.Errorf("rpcServer stop failed. err: %s", err)
+				return
+			}
 			mylog.Info("rpcServer has gracefully stopped")
-			gracefulStopChan <- struct{}{}
 		}()
 
 		select {
