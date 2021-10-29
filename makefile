@@ -1,3 +1,5 @@
+init:
+	@git config --global url."http://vitogo.tpddns.cn:9000".insteadOf "https://gitea.com"
 check:
 	@go build -o /tmp/gostd-server ./cmd/server && rm /tmp/gostd-server
 fmt:
@@ -12,3 +14,5 @@ wire:
 	cd logic/wireinject && wire
 run:
 	go run ./cmd/server -out
+lint:
+	@golangci-lint run
