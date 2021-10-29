@@ -40,6 +40,8 @@ func main() {
 		defer f.Close()
 		mylog.Init(f)
 	}
+
+	mylog.Info("pid:", os.Getpid())
 	mylog.Info("out:", *out)
 	mylog.Info("envPath:", *envPath)
 	mylog.Info("config:", string(cfgBytes))
@@ -47,7 +49,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	chanExit := make(chan struct{}, 1)
+	chanExit := make(chan struct{})
 	go func() {
 		mylog.Infof("正在启动http服务,addr: [:%d]", app.Cfg.HTTPServer.Port)
 		if err := app.HTTPServer.Start(); err != nil {
