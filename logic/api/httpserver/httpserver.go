@@ -34,7 +34,7 @@ func NewServer(cfg *conf.Cfg, stu *student.API, teacherAPi *teacher.API) *Server
 		IdleTimeout:       time.Duration(*cfg.HttpServer.IdleTimeout),
 		MaxHeaderBytes:    *cfg.HttpServer.MaxHeaderBytes,
 	}
-	s := &Server{srv: &srv, serverMux: serverMux, stu: stu, teacherAPi: teacherAPi}
+	s := &Server{cfg: cfg, srv: &srv, serverMux: serverMux, stu: stu, teacherAPi: teacherAPi}
 	return s
 }
 
