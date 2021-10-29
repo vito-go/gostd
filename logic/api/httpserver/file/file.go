@@ -57,7 +57,7 @@ func (f *File) Name(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(resp.DataErrF("id参数必须数字: %s", err.Error()))
 		return
 	}
-	s, err := f.studentAPI.UserInfoCliAPI.GetNameById(idInt)
+	s, err := f.studentAPI.UserInfoCliAPI.GetNameByID(idInt)
 	if err != nil {
 		if err == dberr.ErrNotFound {
 			mylog.Warnf("名字获取失败 id: %d  error: %s", idInt, err.Error())

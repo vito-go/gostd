@@ -36,5 +36,5 @@ var teacherProviders = wire.NewSet(
 )
 var studentProviders = wire.NewSet(studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo,
 	studentdb.NewClassRepo,
-	grades.NewCli, class.NewCli, userinfo.NewCli, student.NewApi,
+	grades.NewCli, class.NewCli, userinfo.NewCli, student.NewAPI,
 )

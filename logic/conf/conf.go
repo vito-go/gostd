@@ -13,8 +13,8 @@ type Env string
 
 // Cfg 配置文件. *Cfg后字段的值可以不用指针了. 基础类型需要加指针才能取出空判断.
 type Cfg struct {
-	HttpServer httpServer `yaml:"http_server" json:"http_server"`
-	RpcServer  rpcServer  `yaml:"rpc_server" json:"rpc_server"`
+	HTTPServer httpServer `yaml:"http_server" json:"http_server"`
+	RPCServer  rpcServer  `yaml:"rpc_server" json:"rpc_server"`
 	RedisConf  redisConf  `yaml:"redis" json:"redis"`
 	Database   database   `yaml:"database" json:"database"`
 }
@@ -22,15 +22,15 @@ type Cfg struct {
 func NewCfg(env Env) (*Cfg, error) {
 	b, err := os.ReadFile(string(env))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("配置文件错误. err: %w", err)
 	}
 	var cfg Cfg
 	err = yaml.Unmarshal(b, &cfg)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("配置文件错误. err: %w", err)
 	}
 	if err = checkZeroValue(cfg); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("配置文件错误. err: %w", err)
 	}
 	return &cfg, nil
 }
@@ -98,7 +98,7 @@ func checkZeroValue(str interface{}) error {
 			}
 		}
 		if v.Field(k).IsZero() {
-			return fmt.Errorf("配置文件错误. err: %+v %+v can not be zero", t, t.Field(k).Name)
+			return fmt.Errorf("%+v %+v can not be zero", t, t.Field(k).Name)
 		}
 	}
 	return nil

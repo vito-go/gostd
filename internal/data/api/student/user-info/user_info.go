@@ -21,7 +21,7 @@ func NewCli(dao *studentdb.Dao) *Cli {
 }
 
 func (c *Cli) GetUserInfoMapByID(id int64) (map[string]string, error) {
-	m, err := c.dao.UserInfoRepo.GetInfoById(context.Background(), id)
+	m, err := c.dao.UserInfoRepo.GetInfoByID(context.Background(), id)
 	if err != nil {
 		return nil, err
 	}
@@ -39,10 +39,9 @@ func (c *Cli) GetUserInfoMapByID(id int64) (map[string]string, error) {
 		result[k] = fmt.Sprint(v)
 	}
 	return result, err
-
 }
-func (c *Cli) GetNameById(id int64) (string, error) {
-	m, err := c.dao.UserInfoRepo.GetInfoById(context.Background(), id)
+func (c *Cli) GetNameByID(id int64) (string, error) {
+	m, err := c.dao.UserInfoRepo.GetInfoByID(context.Background(), id)
 	if err != nil {
 		return "", err
 	}

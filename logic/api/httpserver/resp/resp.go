@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	// todo 暂定就一种错误代码
+	// generalErrCode todo 暂定就一种错误代码
 	generalErrCode = 1
 )
 
@@ -22,23 +22,23 @@ func DataOK(data interface{}) []byte {
 	r := respData{
 		Data: data,
 	}
-	return r.toJsonB()
+	return r.toJSONB()
 }
 func DataErr(message string) []byte {
 	r := respData{
 		Code:    generalErrCode,
 		Message: message,
 	}
-	return r.toJsonB()
+	return r.toJSONB()
 }
 func DataErrF(format string, args ...interface{}) []byte {
 	r := respData{
 		Code:    generalErrCode,
 		Message: fmt.Sprintf(format, args...),
 	}
-	return r.toJsonB()
+	return r.toJSONB()
 }
-func (r *respData) toJsonB() []byte {
+func (r *respData) toJSONB() []byte {
 	b, err := json.Marshal(r)
 	if err != nil {
 		mylog.Error(err)

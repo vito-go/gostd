@@ -8,7 +8,7 @@ type Cli struct {
 	db *studentdb.Dao
 }
 
-func (a *Cli) GetGradesByNameAndId(id int64, name string) {
+func (a *Cli) GetGradesByNameAndID(id int64, name string) {
 	panic("implement me")
 }
 

@@ -29,7 +29,7 @@ func NewUserInfoRepo(db *studentDB) *userInfoRepo {
 	return &userInfoRepo{db: db}
 }
 
-func (u *userInfoRepo) GetInfoById(ctx context.Context, id int64) (*UserInfoModel, error) {
+func (u *userInfoRepo) GetInfoByID(ctx context.Context, id int64) (*UserInfoModel, error) {
 	rows, err := u.db.DB.QueryContext(ctx, fmt.Sprintf("SELECT * FROM %s where id=%d;", UserInfoTableName, id))
 	if err != nil {
 		return nil, err

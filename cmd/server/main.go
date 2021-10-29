@@ -49,17 +49,17 @@ func main() {
 	}
 	chanExit := make(chan struct{}, 1)
 	go func() {
-		mylog.Infof("正在启动http服务,addr: [:%d]", app.Cfg.HttpServer.Port)
+		mylog.Infof("正在启动http服务,addr: [:%d]", app.Cfg.HTTPServer.Port)
 		if err := app.HTTPServer.Start(); err != nil {
-			mylog.Errorf("http服务启动失败！%d err: %s", app.Cfg.HttpServer.Port, err.Error())
+			mylog.Errorf("http服务启动失败！%d err: %s", app.Cfg.HTTPServer.Port, err.Error())
 			chanExit <- struct{}{}
 		}
 	}()
 	go func() {
-		mylog.Infof("正在启动rpc服务,addr: [:%d]", app.Cfg.RpcServer.Port)
+		mylog.Infof("正在启动rpc服务,addr: [:%d]", app.Cfg.RPCServer.Port)
 		rpcRegisters := []interface{}{&myrpc.Hello{}, &myrpc.HelloService{}} //
 		if err := app.RpcServer.Start(rpcRegisters...); err != nil {
-			mylog.Errorf("rpc服务启动失败！%d err: %s", app.Cfg.RpcServer.Port, err.Error())
+			mylog.Errorf("rpc服务启动失败！%d err: %s", app.Cfg.RPCServer.Port, err.Error())
 			chanExit <- struct{}{}
 		}
 	}()

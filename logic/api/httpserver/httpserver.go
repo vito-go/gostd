@@ -20,21 +20,21 @@ type Server struct {
 	srv        *http.Server
 	serverMux  *http.ServeMux
 	stu        *student.API
-	teacherAPi *teacher.API
+	teacherAPI *teacher.API
 }
 
-func NewServer(cfg *conf.Cfg, stu *student.API, teacherAPi *teacher.API) *Server {
+func NewServer(cfg *conf.Cfg, stu *student.API, teacherAPI *teacher.API) *Server {
 	serverMux := http.NewServeMux()
 	srv := http.Server{
-		Addr:              fmt.Sprintf(":%d", cfg.HttpServer.Port),
+		Addr:              fmt.Sprintf(":%d", cfg.HTTPServer.Port),
 		Handler:           serverMux,
-		ReadTimeout:       time.Duration(*cfg.HttpServer.ReadTimeout),
-		ReadHeaderTimeout: time.Duration(*cfg.HttpServer.ReadHeaderTimeout),
-		WriteTimeout:      time.Duration(*cfg.HttpServer.WriteTimeout),
-		IdleTimeout:       time.Duration(*cfg.HttpServer.IdleTimeout),
-		MaxHeaderBytes:    *cfg.HttpServer.MaxHeaderBytes,
+		ReadTimeout:       time.Duration(*cfg.HTTPServer.ReadTimeout),
+		ReadHeaderTimeout: time.Duration(*cfg.HTTPServer.ReadHeaderTimeout),
+		WriteTimeout:      time.Duration(*cfg.HTTPServer.WriteTimeout),
+		IdleTimeout:       time.Duration(*cfg.HTTPServer.IdleTimeout),
+		MaxHeaderBytes:    *cfg.HTTPServer.MaxHeaderBytes,
 	}
-	s := &Server{cfg: cfg, srv: &srv, serverMux: serverMux, stu: stu, teacherAPi: teacherAPi}
+	s := &Server{cfg: cfg, srv: &srv, serverMux: serverMux, stu: stu, teacherAPI: teacherAPI}
 	return s
 }
 

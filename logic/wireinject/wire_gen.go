@@ -35,7 +35,7 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 	cli := grades.NewCli(dao)
 	userinfoCli := userinfo.NewCli(dao)
 	classCli := class.NewCli(dao)
-	api := student.NewApi(cli, userinfoCli, classCli)
+	api := student.NewAPI(cli, userinfoCli, classCli)
 	teacherDB, err := teacherdb.NewTeacherDB(cfg)
 	if err != nil {
 		return nil, err
@@ -54,4 +54,4 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 
 var teacherProviders = wire.NewSet(teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo, teacher.NewApi, info.NewCli)
 
-var studentProviders = wire.NewSet(studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo, grades.NewCli, class.NewCli, userinfo.NewCli, student.NewApi)
+var studentProviders = wire.NewSet(studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo, grades.NewCli, class.NewCli, userinfo.NewCli, student.NewAPI)

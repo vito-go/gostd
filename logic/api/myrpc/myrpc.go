@@ -41,11 +41,11 @@ func (s *Server) Start(rcvs ...interface{}) error {
 		}
 	}
 
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", s.cfg.RpcServer.Port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", s.cfg.RPCServer.Port))
 	if err != nil {
 		return err
 	}
-	s.lis = lis
+	s.lis = lis // todo 是否有点隐式？
 	for {
 		conn, err := lis.Accept()
 		if err != nil {
