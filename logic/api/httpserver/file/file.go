@@ -21,13 +21,13 @@ func NewFile(s *student.API) *File {
 	return &File{studentAPI: s}
 }
 func (f *File) Hello(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(f.studentAPI.UserInfoCliAPI.Hello()))
+	_, _ = w.Write([]byte(f.studentAPI.UserInfoCliAPI.Hello()))
 }
 func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 	idInt, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		w.Write([]byte(`<h1>error: id参数不正确，必须为一个数字</h1>`))
+		_, _ = w.Write([]byte(`<h1>error: id参数不正确，必须为一个数字</h1>`))
 		return
 	}
 	var wg sync.WaitGroup
@@ -44,17 +44,17 @@ func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 		grades = f.studentAPI.GradesCliAPI.GetTotalGradesByID(idInt)
 	}()
 	wg.Wait()
-	w.Write([]byte(fmt.Sprintln(userInfo, grades)))
+	_, _ = w.Write([]byte(fmt.Sprintln(userInfo, grades)))
 }
 func (f *File) Name(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 	if id == "" {
-		w.Write(resp.DataErr("id参数不能为空"))
+		_, _ = w.Write(resp.DataErr("id参数不能为空"))
 		return
 	}
 	idInt, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		w.Write(resp.DataErrF("id参数必须数字: %s", err.Error()))
+		_, _ = w.Write(resp.DataErrF("id参数必须数字: %s", err.Error()))
 		return
 	}
 	s, err := f.studentAPI.UserInfoCliAPI.GetNameById(idInt)
@@ -64,9 +64,8 @@ func (f *File) Name(w http.ResponseWriter, r *http.Request) {
 		} else {
 			mylog.Errorf("名字获取失败 id: %d  error: %s", idInt, err.Error())
 		}
-		w.Write(resp.DataErr(err.Error()))
+		_, _ = w.Write(resp.DataErr(err.Error()))
 		return
 	}
-	w.Write(resp.DataOK(s))
-	return
+	_, _ = w.Write(resp.DataOK(s))
 }

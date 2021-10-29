@@ -69,7 +69,7 @@ func main() {
 
 // safeExit 优雅的实现程序退出. 退出当前程序不影响下次程序启动，但是会在设定时间内优先处理完当前未完成的链接.
 func safeExit(chanExit chan struct{}, httpSrv *httpserver.Server, rpcSrv *myrpc.Server) {
-	c := make(chan os.Signal)
+	c := make(chan os.Signal, 1)
 	// If no signals are provided, all incoming signals will be relayed to c.
 	signal.Notify(c, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT) // 监听键盘终止，以及 kill-15 的信号。注意无法获取kill -9的信号
 	select {
