@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	"gitea.com/myrpc/gostd/teacher"
+
 	"gitea.com/liushihao/gostd/logic/conf"
 	_ "gitea.com/liushihao/gostd/logic/daemon"
 	"gitea.com/liushihao/gostd/logic/httpserver"
@@ -57,7 +59,7 @@ func main() {
 	}()
 	go func() {
 		mylog.Infof("正在启动rpc服务,addr: [:%d]", app.Cfg.RPCServer.Port)
-		rpcRegisters := []interface{}{&myrpc.Hello{}, &myrpc.HelloService{}} //
+		rpcRegisters := []interface{}{&teacher.Teacher{}} //
 		if err := app.RpcServer.Start(rpcRegisters...); err != nil {
 			mylog.Errorf("rpc服务启动失败！%d err: %s", app.Cfg.RPCServer.Port, err.Error())
 			chanExit <- struct{}{}

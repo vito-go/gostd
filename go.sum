@@ -1,6 +1,7 @@
-gitea.com/liushihao/daemon v0.0.0-20211011103545-62707a448ba8 h1:8xzTpKEXfUQL+ZNyGh//882FnOnTSJ5waeypl9IzA+A=
-gitea.com/liushihao/daemon v0.0.0-20211011103545-62707a448ba8/go.mod h1:mXzdqJGSiq6gYmjHjgwKwAE1TawBuazKQmBWMSM6UrY=
-gitea.com/liushihao/mylog v0.0.0-20211007140657-174ff1c2e4a2/go.mod h1:u6XftZNjxIc02/LCQUBvwCmSLiTMQXot90/mZK9MkO4=
+gitea.com/myrpc/gorpc-gen v0.0.0-20211107162715-d5245fe8308c h1:MMktGfdTHi8XTURxZfW2ZMB073x0X8CWHiNL4R0Ok2A=
+gitea.com/myrpc/gorpc-gen v0.0.0-20211107162715-d5245fe8308c/go.mod h1:nIQHB1nyVsaM1SvlS+qTuv6dSBrrzf+Uyx8y6LGBaxI=
+gitea.com/myrpc/gostd v0.0.0-20211107170026-7aeb4ac70b5c h1:Czkbvc0oc2pnnlZ1+OK+rHoncS7u+CJE3m33zFFWdBc=
+gitea.com/myrpc/gostd v0.0.0-20211107170026-7aeb4ac70b5c/go.mod h1:kPpM2NW/WMltNtH8r3KtKiOIZxcX8yg/fr6k5tHCWgo=
 github.com/cespare/xxhash/v2 v2.1.2 h1:YRXhKfTDauu4ajMg1TPgFO5jnlC2HCbmLXMcTG5cbYE=
 github.com/cespare/xxhash/v2 v2.1.2/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
