@@ -9,8 +9,8 @@
 - 所有的链接、初始化均显示进行，通过wire工具自动生成InitApp方法
 - 支持微服务架构拆分（项目充分解藕内聚合，直接将data层抽出来）
 - logic层通过interface接口与数据层db进行通信.
- - 对于logic层，连接数据库的叫client（简称cli）
- - 对于data层，链接数据库层的叫dao(即一个数据库链接)
+- 对于logic层，连接数据库的叫client（简称cli）
+- 对于data层，链接数据库层的叫dao(即一个数据库链接)
 - **logic不允许直接操作db，只允许通过接口与data层获取数据**，即通过client调用data层提供对应的client的方法获取数据
     - 保证开发分工明确，logic层调用数据安全.
 - logic层和data层可以分别开发互不干扰
