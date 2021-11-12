@@ -1,4 +1,4 @@
-package database
+package dao
 
 import (
 	"database/sql"
@@ -8,12 +8,12 @@ import (
 	"gitea.com/liushihao/gostd/logic/conf"
 )
 
-type DB struct {
+type Dao struct {
 	pgConf conf.PgConf // 可以做导出方法
 	DB     *sql.DB
 }
 
-func Open(pgConf conf.PgConf) (*DB, error) {
+func Open(pgConf conf.PgConf) (*Dao, error) {
 	db, err := sql.Open(pgConf.DriverName, pgConf.Dsn)
 	if err != nil {
 		return nil, err
@@ -22,7 +22,7 @@ func Open(pgConf conf.PgConf) (*DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &DB{
+	return &Dao{
 		pgConf: pgConf,
 		DB:     db,
 	}, nil

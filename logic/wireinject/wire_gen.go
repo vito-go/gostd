@@ -14,8 +14,8 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
 	"gitea.com/liushihao/gostd/internal/data/conn"
-	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
-	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
+	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
+	"gitea.com/liushihao/gostd/internal/data/dao/teacherdao"
 	"gitea.com/liushihao/gostd/logic"
 	"gitea.com/liushihao/gostd/logic/conf"
 	"gitea.com/liushihao/gostd/logic/httpserver"
@@ -26,23 +26,23 @@ import (
 // Injectors from wire.go:
 
 func InitApp(cfg *conf.Cfg) (*logic.App, error) {
-	studentDB, err := studentdb.NewStudentDB(cfg)
+	studentDB, err := studentdao.NewStudentDB(cfg)
 	if err != nil {
 		return nil, err
 	}
-	userInfoRepo := studentdb.NewUserInfoRepo(studentDB)
-	classRepo := studentdb.NewClassRepo(studentDB)
-	dao := studentdb.NewDao(cfg, studentDB, userInfoRepo, classRepo)
+	userInfoRepo := studentdao.NewUserInfoRepo(studentDB)
+	classRepo := studentdao.NewClassRepo(studentDB)
+	dao := studentdao.NewDao(cfg, studentDB, userInfoRepo, classRepo)
 	cli := grades.NewCli(dao)
 	userinfoCli := userinfo.NewCli(dao)
 	classCli := class.NewCli(dao)
 	api := student.NewAPI(cli, userinfoCli, classCli)
-	teacherDB, err := teacherdb.NewTeacherDB(cfg)
+	teacherDB, err := teacherdao.NewTeacherDB(cfg)
 	if err != nil {
 		return nil, err
 	}
-	infoRepo := teacherdb.NewInfoRepo(teacherDB)
-	teacherdbDao := teacherdb.NewDao(cfg, teacherDB, infoRepo)
+	infoRepo := teacherdao.NewInfoRepo(teacherDB)
+	teacherdbDao := teacherdao.NewDao(cfg, teacherDB, infoRepo)
 	infoCli := info.NewCli(teacherdbDao)
 	teacherAPI := teacher.NewApi(infoCli)
 	client, err := conn.NewRedisClient(cfg)
@@ -57,6 +57,6 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 
 // wire.go:
 
-var studentProviders = wire.NewSet(student.NewAPI, studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo, grades.NewCli, class.NewCli, userinfo.NewCli)
+var studentProviders = wire.NewSet(student.NewAPI, studentdao.NewDao, studentdao.NewStudentDB, studentdao.NewUserInfoRepo, studentdao.NewClassRepo, grades.NewCli, class.NewCli, userinfo.NewCli)
 
-var teacherProviders = wire.NewSet(teacher.NewApi, teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo, info.NewCli)
+var teacherProviders = wire.NewSet(teacher.NewApi, teacherdao.NewDao, teacherdao.NewTeacherDB, teacherdao.NewInfoRepo, info.NewCli)

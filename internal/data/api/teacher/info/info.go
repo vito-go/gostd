@@ -1,17 +1,17 @@
 package info
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
+	"gitea.com/liushihao/gostd/internal/data/dao/teacherdao"
 )
 
 type Cli struct {
-	dao *teacherdb.Dao
+	dao *teacherdao.Dao
 }
 
 func (c *Cli) GetInfoByID(id int64) {
 	panic("implement me")
 }
 
-func NewCli(dao *teacherdb.Dao) *Cli {
+func NewCli(dao *teacherdao.Dao) *Cli {
 	return &Cli{dao: dao}
 }
