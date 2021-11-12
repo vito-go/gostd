@@ -38,7 +38,13 @@ func main() {
 			panic(err)
 		}
 		defer f.Close()
-		mylog.Init(f)
+		mylog.Init(&mylog.Config{
+			InfoWriter:  f,
+			WarnWriter:  f,
+			ErrWriter:   f, // 错误日志可以再增加一个f io.MultiWriter(f,fErr)
+			PanicWriter: f,
+			FatalWriter: f,
+		})
 	}
 
 	mylog.Info("pid:", os.Getpid())
