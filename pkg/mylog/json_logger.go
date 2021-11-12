@@ -76,9 +76,6 @@ func (e *entry) Info(a ...interface{}) {
 	if e.fn != nil {
 		*e = *e.fn()
 	}
-	if e.fn != nil {
-		*e = *e.fn()
-	}
 	_ = e.outputLn(infoLevel, a...)
 }
 func (e *entry) Infof(format string, a ...interface{}) {
@@ -164,7 +161,7 @@ func (e *entry) toJsonStr() string {
 func (e *entry) output(l level, format string, a ...interface{}) error {
 	var msg string
 	if format == "" {
-		msg := fmt.Sprintln(a...)
+		msg = fmt.Sprintln(a...)
 		msg = msg[:len(msg)-1] // 去除末尾的\n符号
 	} else {
 		msg = fmt.Sprintf(format, a...)
@@ -199,7 +196,7 @@ func (e *entry) output(l level, format string, a ...interface{}) error {
 }
 
 func jsonOut() *entry {
-	_, file, line, ok := runtime.Caller(1)
+	_, file, line, ok := runtime.Caller(2)
 	if !ok {
 		file = "???"
 	}

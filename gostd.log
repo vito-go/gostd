@@ -1,0 +1,36 @@
+{"level":"info","time":"2021/11/12 22:57:02.553","msg":"niha","file_no":"main.go:51"}
+[INFO] 2021/11/12 22:57:50.040465 main.go:52: pid: 920463
+[INFO] 2021/11/12 22:57:50.040503 main.go:53: out: false
+[INFO] 2021/11/12 22:57:50.040521 main.go:54: envPath: cmd/server/app.yaml
+[INFO] 2021/11/12 22:57:50.040552 main.go:55: config: {
+  "http_server": {
+    "port": 9090,
+    "read_timeout": 0,
+    "read_header_timeout": 0,
+    "write_timeout": 0,
+    "idle_timeout": 0,
+    "max_header_bytes": 0
+  },
+  "rpc_server": {
+    "port": 19090
+  },
+  "redis": {
+    "db": 0,
+    "port": 6379,
+    "user_name": "",
+    "password": ""
+  },
+  "database": {
+    "student": {
+      "driver_name": "postgres"
+    },
+    "teacher": {
+      "driver_name": "postgres"
+    },
+    "class": {
+      "driver_name": "postgres"
+    }
+  }
+}
+[INFO] 2021/11/12 22:57:50.051439 main.go:62: 正在启动http服务,addr: [:9090]
+[ERROR] 2021/11/12 22:57:50.051770 main.go:64: http服务启动失败！9090 err: listen tcp :9090: bind: address already in use
