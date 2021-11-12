@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-redis/redis/v8"
 
-	"gitea.com/liushihao/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/conf"
 )
 
 // NewRedisClient generate a Redis client representing a pool of zero or more

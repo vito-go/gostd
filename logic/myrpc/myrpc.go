@@ -8,7 +8,7 @@ import (
 	"net/rpc"
 	"sync"
 
-	"gitea.com/liushihao/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/conf"
 	"gitea.com/liushihao/gostd/pkg/mylog"
 )
 

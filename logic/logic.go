@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"gitea.com/liushihao/gostd/conf"
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
-	"gitea.com/liushihao/gostd/logic/conf"
 	"gitea.com/liushihao/gostd/logic/httpserver"
 	"gitea.com/liushihao/gostd/logic/myrpc"
 )

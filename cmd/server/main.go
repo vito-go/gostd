@@ -11,7 +11,7 @@ import (
 
 	"gitea.com/myrpc/gostd/teacher"
 
-	"gitea.com/liushihao/gostd/logic/conf"
+	"gitea.com/liushihao/gostd/conf"
 	"gitea.com/liushihao/gostd/logic/httpserver"
 	"gitea.com/liushihao/gostd/logic/myrpc"
 	"gitea.com/liushihao/gostd/logic/wireinject"

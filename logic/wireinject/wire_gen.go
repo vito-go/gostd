@@ -7,6 +7,7 @@
 package wireinject
 
 import (
+	"gitea.com/liushihao/gostd/conf"
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/api/student/class"
 	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
@@ -17,7 +18,6 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
 	"gitea.com/liushihao/gostd/internal/data/dao/teacherdao"
 	"gitea.com/liushihao/gostd/logic"
-	"gitea.com/liushihao/gostd/logic/conf"
 	"gitea.com/liushihao/gostd/logic/httpserver"
 	"gitea.com/liushihao/gostd/logic/myrpc"
 	"github.com/google/wire"

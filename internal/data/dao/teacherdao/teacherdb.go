@@ -3,8 +3,8 @@ package teacherdao
 import (
 	"fmt"
 
+	"gitea.com/liushihao/gostd/conf"
 	"gitea.com/liushihao/gostd/internal/data/dao"
-	"gitea.com/liushihao/gostd/logic/conf"
 )
 
 type Dao struct {
