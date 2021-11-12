@@ -12,11 +12,14 @@ import (
 	"gitea.com/liushihao/gostd/logic/mylog"
 )
 
+type registers []interface{}
+
 type Server struct {
 	cfg    *conf.Cfg
 	wg     *sync.WaitGroup
 	lis    net.Listener
 	server *rpc.Server
+	// registers registers // todo 是直接将rpc接口放结构体中还是 放在 registers registers 需要注入。。
 }
 
 func NewServer(cfg *conf.Cfg) *Server {
@@ -24,6 +27,7 @@ func NewServer(cfg *conf.Cfg) *Server {
 		cfg:    cfg,
 		wg:     new(sync.WaitGroup),
 		server: rpc.NewServer(),
+		// registers: registers,
 	}
 }
 

@@ -1,4 +1,3 @@
-// Package mylog http://vitogo.tpddns.cn:9000/liushihao/mylog
 package mylog
 
 import (
@@ -10,7 +9,6 @@ import (
 	"sync"
 )
 
-// logFlag 日志输出格式. Lshortfile 可以跳转到文件位置.
 const logFlag = log.Lmicroseconds | log.Ldate | log.Lshortfile
 
 //  infoPrefix warnPrefix errPrefix panicPrefix fatalPrefix 日志输出前缀.
@@ -29,19 +27,6 @@ const (
 前景色: 30（黑色）、31（红色）、32（绿色）、 33（黄色）、34（蓝色）、35（洋 红）、36（青色）、37（白色）
 背景色: 40（黑色）、41（红色）、42（绿色）、 43（黄色）、44（蓝色）、45（洋 红）、46（青色）、47（白色）
 */
-
-func init() {
-	if runtime.GOOS == "windows" {
-		return
-	}
-	infoLogger.SetPrefix("\033[1;32m[INFO] \033[0m")
-	warnLogger.SetPrefix("\033[1;33m[WARN] \033[0m")
-	errLogger.SetPrefix("\033[1;31m[ERROR] \033[0m")
-	panicLogger.SetPrefix("\033[1;37;31m[PANIC] \033[0m")
-	fatalLogger.SetPrefix("\033[5;32m[FATAL] \033[0m")
-
-}
-
 var (
 	infoLogger  = log.New(os.Stdout, infoPrefix, logFlag)
 	warnLogger  = log.New(os.Stdout, warnPrefix, logFlag)
@@ -51,20 +36,50 @@ var (
 	once        = new(sync.Once)
 )
 
+type Config struct {
+	InfoWriter  io.Writer
+	WarnWriter  io.Writer
+	ErrWriter   io.Writer
+	PanicWriter io.Writer
+	FatalWriter io.Writer
+}
+
 // Init set the Writer. It does nothing when after doing first.
-func Init(w io.Writer) {
-	once.Do(
-		func() {
-			if w != os.Stdout {
-				// 仅仅当为标准输出时才为带颜色输出
-				infoLogger.SetPrefix(infoPrefix)
-				warnLogger.SetPrefix(warnPrefix)
-				errLogger.SetPrefix(errPrefix)
-				panicLogger.SetPrefix(panicPrefix)
-				fatalLogger.SetPrefix(fatalPrefix)
-			}
-			allSetOutPut(w)
-		})
+func Init(c *Config) {
+	once.Do(func() {
+		if c.InfoWriter != nil {
+			infoLogger.SetOutput(c.InfoWriter)
+			infoLogger.SetPrefix(infoPrefix)
+		}
+		if c.WarnWriter != nil {
+			warnLogger.SetOutput(c.WarnWriter)
+			warnLogger.SetPrefix(warnPrefix)
+		}
+		if c.ErrWriter != nil {
+			errLogger.SetOutput(c.ErrWriter)
+			errLogger.SetPrefix(errPrefix)
+		}
+		if c.PanicWriter != nil {
+			panicLogger.SetOutput(c.PanicWriter)
+			panicLogger.SetPrefix(panicPrefix)
+		}
+		if c.FatalWriter != nil {
+			fatalLogger.SetOutput(c.FatalWriter)
+			fatalLogger.SetPrefix(fatalPrefix)
+		}
+		jsonLogger.setConfig(c)
+	})
+}
+
+func init() {
+	if runtime.GOOS != "windows" {
+		// 仅仅当为非windows平台,且为标准输出时才为带颜色输出. json不支持
+		infoLogger.SetPrefix("\033[1;32m[INFO] \033[0m")
+		warnLogger.SetPrefix("\033[1;33m[WARN] \033[0m")
+		errLogger.SetPrefix("\033[1;31m[ERROR] \033[0m")
+		panicLogger.SetPrefix("\033[1;37;31m[PANIC] \033[0m")
+		fatalLogger.SetPrefix("\033[5;32m[FATAL] \033[0m")
+	}
 }
 func Info(v ...interface{}) {
 	infoLogger.Output(2, fmt.Sprintln(v...))
@@ -101,11 +116,4 @@ func Fatal(v ...interface{}) {
 func Fatalf(format string, v ...interface{}) {
 	fatalLogger.Output(2, fmt.Sprintf(format, v...))
 	os.Exit(1)
-}
-func allSetOutPut(w io.Writer) {
-	infoLogger.SetOutput(w)
-	warnLogger.SetOutput(w)
-	errLogger.SetOutput(w)
-	panicLogger.SetOutput(w)
-	fatalLogger.SetOutput(w)
 }

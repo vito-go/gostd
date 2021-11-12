@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	"gitea.com/myrpc/gostd/teacher"
+
 	"gitea.com/liushihao/gostd/logic/conf"
 	_ "gitea.com/liushihao/gostd/logic/daemon"
 	"gitea.com/liushihao/gostd/logic/httpserver"
@@ -31,12 +33,19 @@ func main() {
 		panic(err)
 	}
 	if !*out {
+		// 建议在配置文件中配置logpath
 		f, err := os.Create("gostd.log")
 		if err != nil {
 			panic(err)
 		}
 		defer f.Close()
-		mylog.Init(f)
+		mylog.Init(&mylog.Config{
+			InfoWriter:  f,
+			WarnWriter:  f,
+			ErrWriter:   f, // 错误日志可以再增加一个f io.MultiWriter(f,fErr)
+			PanicWriter: f,
+			FatalWriter: f,
+		})
 	}
 
 	mylog.Info("pid:", os.Getpid())
@@ -57,7 +66,7 @@ func main() {
 	}()
 	go func() {
 		mylog.Infof("正在启动rpc服务,addr: [:%d]", app.Cfg.RPCServer.Port)
-		rpcRegisters := []interface{}{&myrpc.Hello{}, &myrpc.HelloService{}} //
+		rpcRegisters := []interface{}{&teacher.Teacher{}} //
 		if err := app.RpcServer.Start(rpcRegisters...); err != nil {
 			mylog.Errorf("rpc服务启动失败！%d err: %s", app.Cfg.RPCServer.Port, err.Error())
 			chanExit <- struct{}{}
