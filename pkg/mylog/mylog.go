@@ -72,39 +72,39 @@ func Init(c *Config) {
 }
 
 func Info(v ...interface{}) {
-	infoLogger.Output(2, fmt.Sprintln(v...))
+	_ = infoLogger.Output(2, fmt.Sprintln(v...))
 }
 func Infof(format string, v ...interface{}) {
-	infoLogger.Output(2, fmt.Sprintf(format, v...))
+	_ = infoLogger.Output(2, fmt.Sprintf(format, v...))
 }
 func Warn(v ...interface{}) {
-	warnLogger.Output(2, fmt.Sprintln(v...))
+	_ = warnLogger.Output(2, fmt.Sprintln(v...))
 }
 func Warnf(format string, v ...interface{}) {
-	warnLogger.Output(2, fmt.Sprintf(format, v...))
+	_ = warnLogger.Output(2, fmt.Sprintf(format, v...))
 }
 func Error(v ...interface{}) {
-	errLogger.Output(2, fmt.Sprintln(v...))
+	_ = errLogger.Output(2, fmt.Sprintln(v...))
 }
 func Errorf(format string, v ...interface{}) {
-	errLogger.Output(2, fmt.Sprintf(format, v...))
+	_ = errLogger.Output(2, fmt.Sprintf(format, v...))
 }
 func Panic(v ...interface{}) {
 	s := fmt.Sprintln(v...)
-	panicLogger.Output(2, s)
+	_ = panicLogger.Output(2, s)
 	panic(s)
 }
 func Panicf(format string, v ...interface{}) {
 	s := fmt.Sprintf(format, v...)
-	panicLogger.Output(2, s)
+	_ = panicLogger.Output(2, s)
 	panic(s)
 }
 func Fatal(v ...interface{}) {
-	fatalLogger.Output(2, fmt.Sprintln(v...))
+	_ = fatalLogger.Output(2, fmt.Sprintln(v...))
 	os.Exit(1)
 }
 func Fatalf(format string, v ...interface{}) {
-	fatalLogger.Output(2, fmt.Sprintf(format, v...))
+	_ = fatalLogger.Output(2, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
