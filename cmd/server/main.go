@@ -33,6 +33,7 @@ func main() {
 		panic(err)
 	}
 	if !*out {
+		// 建议在配置文件中配置logpath
 		f, err := os.Create("gostd.log")
 		if err != nil {
 			panic(err)
