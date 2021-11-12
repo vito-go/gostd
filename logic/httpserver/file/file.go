@@ -46,7 +46,7 @@ func (f *File) UserData(w http.ResponseWriter, r *http.Request) {
 		defer wg.Done()
 		userInfo, err = f.studentAPI.UserInfoCliAPI.GetUserInfoMapByID(idInt)
 	}()
-	wg.Add(1) // 千万不要不写否则无法捕获goroutine的panic
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		grades = f.studentAPI.GradesCliAPI.GetTotalGradesByID(idInt)
