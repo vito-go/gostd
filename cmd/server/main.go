@@ -48,7 +48,7 @@ func main() {
 			FatalWriter: f,
 		})
 	}
-
+	mylog.JsonOut.Info("niha")
 	mylog.Info("pid:", os.Getpid())
 	mylog.Info("out:", *out)
 	mylog.Info("envPath:", *envPath)
