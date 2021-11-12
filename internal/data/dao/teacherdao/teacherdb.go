@@ -1,9 +1,9 @@
-package teacherdb
+package teacherdao
 
 import (
 	"fmt"
 
-	"gitea.com/liushihao/gostd/internal/data/database"
+	"gitea.com/liushihao/gostd/internal/data/dao"
 	"gitea.com/liushihao/gostd/logic/conf"
 )
 
@@ -18,10 +18,10 @@ func NewDao(cfg *conf.Cfg, db *teacherDB, infoRepo *infoRepo) *Dao {
 	return &Dao{cfg: cfg, db: db, InfoRepo: infoRepo}
 }
 
-type teacherDB database.DB
+type teacherDB dao.Dao
 
 func NewTeacherDB(cfg *conf.Cfg) (*teacherDB, error) {
-	db, err := database.Open(cfg.Database.Student)
+	db, err := dao.Open(cfg.Database.Student)
 	if err != nil {
 		return nil, fmt.Errorf("teacher库链接失败！ err:%w", err)
 	}

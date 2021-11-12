@@ -5,18 +5,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
+	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
 )
 
 type Cli struct {
-	dao *studentdb.Dao
+	dao *studentdao.Dao
 }
 
 func (c *Cli) Hello() string {
 	return "hello world"
 }
 
-func NewCli(dao *studentdb.Dao) *Cli {
+func NewCli(dao *studentdao.Dao) *Cli {
 	return &Cli{dao: dao}
 }
 

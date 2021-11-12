@@ -1,14 +1,14 @@
 package class
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
+	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
 )
 
 type Cli struct {
-	dao *studentdb.Dao
+	dao *studentdao.Dao
 }
 
-func NewCli(db *studentdb.Dao) *Cli {
+func NewCli(db *studentdao.Dao) *Cli {
 	return &Cli{dao: db}
 }
 

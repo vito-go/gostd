@@ -1,4 +1,4 @@
-package teacherdb
+package teacherdao
 
 type infoRepo struct {
 	db *teacherDB

@@ -13,8 +13,8 @@ import (
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
 	"gitea.com/liushihao/gostd/internal/data/conn"
-	"gitea.com/liushihao/gostd/internal/data/database/studentdb"
-	"gitea.com/liushihao/gostd/internal/data/database/teacherdb"
+	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
+	"gitea.com/liushihao/gostd/internal/data/dao/teacherdao"
 	"gitea.com/liushihao/gostd/logic"
 	"gitea.com/liushihao/gostd/logic/conf"
 	"gitea.com/liushihao/gostd/logic/httpserver"
@@ -33,13 +33,13 @@ func InitApp(cfg *conf.Cfg) (*logic.App, error) {
 }
 
 var studentProviders = wire.NewSet(
-	student.NewAPI,                                                                              // student库API
-	studentdb.NewDao, studentdb.NewStudentDB, studentdb.NewUserInfoRepo, studentdb.NewClassRepo, // studentdb层面的表
+	student.NewAPI,                                                                                  // student库API
+	studentdao.NewDao, studentdao.NewStudentDB, studentdao.NewUserInfoRepo, studentdao.NewClassRepo, // studentdb层面的表
 	grades.NewCli, class.NewCli, userinfo.NewCli, // 对于logic层面的调取data层student数据的client
 )
 
 var teacherProviders = wire.NewSet(
-	teacher.NewApi,                                                  // teacher 库API
-	teacherdb.NewDao, teacherdb.NewTeacherDB, teacherdb.NewInfoRepo, // teacherdb 层面的表
+	teacher.NewApi,                                                     // teacher 库API
+	teacherdao.NewDao, teacherdao.NewTeacherDB, teacherdao.NewInfoRepo, // teacherdao 层面的表
 	info.NewCli, // 对于logic层面的调取data层teacher数据的client
 )

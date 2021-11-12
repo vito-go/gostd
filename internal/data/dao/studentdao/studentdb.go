@@ -1,9 +1,9 @@
-package studentdb
+package studentdao
 
 import (
 	"fmt"
 
-	"gitea.com/liushihao/gostd/internal/data/database"
+	"gitea.com/liushihao/gostd/internal/data/dao"
 	"gitea.com/liushihao/gostd/logic/conf"
 )
 
@@ -19,10 +19,10 @@ func NewDao(cfg *conf.Cfg, db *studentDB, userInfoRepo *userInfoRepo, classRepo 
 	return &Dao{cfg: cfg, db: db, UserInfoRepo: userInfoRepo, ClassRepo: classRepo}
 }
 
-type studentDB database.DB
+type studentDB dao.Dao
 
 func NewStudentDB(cfg *conf.Cfg) (*studentDB, error) {
-	db, err := database.Open(cfg.Database.Student)
+	db, err := dao.Open(cfg.Database.Student)
 	if err != nil {
 		return nil, fmt.Errorf("student库链接失败！ err:%w", err)
 	}

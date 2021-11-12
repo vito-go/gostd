@@ -1,4 +1,4 @@
-package studentdb
+package studentdao
 
 type classRepo struct {
 	db *studentDB
