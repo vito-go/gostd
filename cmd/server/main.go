@@ -12,11 +12,11 @@ import (
 	"gitea.com/myrpc/gostd/teacher"
 
 	"gitea.com/liushihao/gostd/logic/conf"
-	_ "gitea.com/liushihao/gostd/logic/daemon"
 	"gitea.com/liushihao/gostd/logic/httpserver"
-	"gitea.com/liushihao/gostd/logic/mylog"
 	"gitea.com/liushihao/gostd/logic/myrpc"
 	"gitea.com/liushihao/gostd/logic/wireinject"
+	_ "gitea.com/liushihao/gostd/pkg/daemon"
+	"gitea.com/liushihao/gostd/pkg/mylog"
 )
 
 func main() {

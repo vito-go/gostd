@@ -9,7 +9,7 @@ import (
 	"sync"
 
 	"gitea.com/liushihao/gostd/logic/conf"
-	"gitea.com/liushihao/gostd/logic/mylog"
+	"gitea.com/liushihao/gostd/pkg/mylog"
 )
 
 type registers []interface{}

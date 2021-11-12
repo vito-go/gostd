@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"gitea.com/liushihao/gostd/logic/httpserver/resp"
-	"gitea.com/liushihao/gostd/logic/mylog"
+	"gitea.com/liushihao/gostd/pkg/mylog"
 
 	"github.com/go-redis/redis/v8"
 

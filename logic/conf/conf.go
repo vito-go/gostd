@@ -6,7 +6,7 @@ import (
 	"os"
 	"reflect"
 
-	"gitea.com/liushihao/gostd/logic/mylog"
+	"gitea.com/liushihao/gostd/pkg/mylog"
 
 	"gopkg.in/yaml.v3"
 )

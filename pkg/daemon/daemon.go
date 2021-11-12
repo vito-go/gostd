@@ -1,4 +1,3 @@
-// Package daemon http://vitogo.tpddns.cn:9000/liushihao/daemon
 package daemon
 
 import (

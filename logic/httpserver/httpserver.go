@@ -10,7 +10,7 @@ import (
 	"github.com/go-redis/redis/v8"
 
 	"gitea.com/liushihao/gostd/logic/httpserver/file"
-	"gitea.com/liushihao/gostd/logic/mylog"
+	"gitea.com/liushihao/gostd/pkg/mylog"
 
 	"gitea.com/liushihao/gostd/internal/data/api/student"
 	"gitea.com/liushihao/gostd/internal/data/api/teacher"

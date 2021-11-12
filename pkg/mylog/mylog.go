@@ -71,16 +71,6 @@ func Init(c *Config) {
 	})
 }
 
-func init() {
-	if runtime.GOOS != "windows" {
-		// 仅仅当为非windows平台,且为标准输出时才为带颜色输出. json不支持
-		infoLogger.SetPrefix("\033[1;32m[INFO] \033[0m")
-		warnLogger.SetPrefix("\033[1;33m[WARN] \033[0m")
-		errLogger.SetPrefix("\033[1;31m[ERROR] \033[0m")
-		panicLogger.SetPrefix("\033[1;37;31m[PANIC] \033[0m")
-		fatalLogger.SetPrefix("\033[5;32m[FATAL] \033[0m")
-	}
-}
 func Info(v ...interface{}) {
 	infoLogger.Output(2, fmt.Sprintln(v...))
 }
@@ -116,4 +106,15 @@ func Fatal(v ...interface{}) {
 func Fatalf(format string, v ...interface{}) {
 	fatalLogger.Output(2, fmt.Sprintf(format, v...))
 	os.Exit(1)
+}
+
+func init() {
+	if runtime.GOOS != "windows" {
+		// 仅仅当为非windows平台,且为标准输出时才为带颜色输出. json不支持
+		infoLogger.SetPrefix("\033[1;32m[INFO] \033[0m")
+		warnLogger.SetPrefix("\033[1;33m[WARN] \033[0m")
+		errLogger.SetPrefix("\033[1;31m[ERROR] \033[0m")
+		panicLogger.SetPrefix("\033[1;37;31m[PANIC] \033[0m")
+		fatalLogger.SetPrefix("\033[5;32m[FATAL] \033[0m")
+	}
 }
