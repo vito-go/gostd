@@ -80,7 +80,7 @@ type database struct {
 }
 
 type redisConf struct {
-	DB       *int   `yaml:"db" json:"db"`
+	DB       int    `yaml:"db" json:"db" required:"false"`
 	Port     int    `yaml:"port" json:"port"`
 	UserName string `yaml:"user_name" json:"user_name" required:"false"`
 	Password string `yaml:"password" json:"password" required:"false"`

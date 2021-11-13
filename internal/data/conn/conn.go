@@ -19,7 +19,7 @@ func NewRedisClient(cfg *conf.Cfg) (*redis.Client, error) {
 		Addr:     fmt.Sprintf(":%d", cfg.RedisConf.Port),
 		Username: cfg.RedisConf.UserName,
 		Password: cfg.RedisConf.Password,
-		DB:       *cfg.RedisConf.DB,
+		DB:       cfg.RedisConf.DB,
 		// 可以在配置中添加更多需要的配置
 	})
 	if err := redisCli.Ping(context.Background()).Err(); err != nil {
