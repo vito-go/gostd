@@ -1,3 +1,4 @@
+// Package daemon https://github.com/liushihao1993/daemon
 package daemon
 
 import (
