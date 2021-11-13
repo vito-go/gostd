@@ -25,7 +25,7 @@
 ## internal/data： 数据层
 ## logic与data层通过接口进行数据传输，logic不允许直接操作db
 ## 做微服务架构时候，data层可以单独抽出来独立的服务
-
+- 文件夹图包位置,命名,结构有调整(各功能不变,未更新)
 ![avatar](images/tree.png)
 ![avatar](images/system.png)
 # 快速开始
