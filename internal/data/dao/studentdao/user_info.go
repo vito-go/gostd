@@ -8,7 +8,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"gitea.com/liushihao/gostd/internal/data/dberr"
+	"github.com/liushihao/gostd/internal/data/dberr"
 )
 
 const UserInfoTableName = "user_info"

@@ -6,19 +6,19 @@ package wireinject
 import (
 	"github.com/google/wire"
 
-	"gitea.com/liushihao/gostd/conf"
-	"gitea.com/liushihao/gostd/internal/data/api/student"
-	"gitea.com/liushihao/gostd/internal/data/api/student/class"
-	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
-	userinfo "gitea.com/liushihao/gostd/internal/data/api/student/user-info"
-	"gitea.com/liushihao/gostd/internal/data/api/teacher"
-	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
-	"gitea.com/liushihao/gostd/internal/data/conn"
-	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
-	"gitea.com/liushihao/gostd/internal/data/dao/teacherdao"
-	"gitea.com/liushihao/gostd/logic"
-	"gitea.com/liushihao/gostd/logic/httpserver"
-	"gitea.com/liushihao/gostd/logic/myrpc"
+	"github.com/liushihao/gostd/conf"
+	"github.com/liushihao/gostd/internal/data/api/student"
+	"github.com/liushihao/gostd/internal/data/api/student/class"
+	"github.com/liushihao/gostd/internal/data/api/student/grades"
+	userinfo "github.com/liushihao/gostd/internal/data/api/student/user-info"
+	"github.com/liushihao/gostd/internal/data/api/teacher"
+	"github.com/liushihao/gostd/internal/data/api/teacher/info"
+	"github.com/liushihao/gostd/internal/data/conn"
+	"github.com/liushihao/gostd/internal/data/dao/studentdao"
+	"github.com/liushihao/gostd/internal/data/dao/teacherdao"
+	"github.com/liushihao/gostd/logic"
+	"github.com/liushihao/gostd/logic/httpserver"
+	"github.com/liushihao/gostd/logic/myrpc"
 )
 
 func InitApp(cfg *conf.Cfg) (*logic.App, error) {

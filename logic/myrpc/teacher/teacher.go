@@ -3,7 +3,7 @@ package teacher
 import (
 	"gitea.com/myrpc/gostd/teacher"
 
-	"gitea.com/liushihao/gostd/internal/data/api/student"
+	"github.com/liushihao/gostd/internal/data/api/student"
 )
 
 type Teach struct {

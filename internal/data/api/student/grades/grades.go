@@ -1,7 +1,7 @@
 package grades
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/dao/studentdao"
+	"github.com/liushihao/gostd/internal/data/dao/studentdao"
 )
 
 type Cli struct {

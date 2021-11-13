@@ -8,8 +8,8 @@ import (
 	"net/rpc"
 	"sync"
 
-	"gitea.com/liushihao/gostd/conf"
-	"gitea.com/liushihao/gostd/pkg/mylog"
+	"github.com/liushihao/gostd/conf"
+	"github.com/liushihao/gostd/pkg/mylog"
 )
 
 type registers []interface{}

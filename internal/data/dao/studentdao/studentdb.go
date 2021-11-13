@@ -3,8 +3,8 @@ package studentdao
 import (
 	"fmt"
 
-	"gitea.com/liushihao/gostd/conf"
-	"gitea.com/liushihao/gostd/internal/data/dao"
+	"github.com/liushihao/gostd/conf"
+	"github.com/liushihao/gostd/internal/data/dao"
 )
 
 type Dao struct {

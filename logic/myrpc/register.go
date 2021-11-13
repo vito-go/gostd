@@ -1,6 +1,6 @@
 package myrpc
 
-import "gitea.com/liushihao/gostd/logic/myrpc/teacher"
+import "github.com/liushihao/gostd/logic/myrpc/teacher"
 
 func (s *Server) register() {
 	var receivers = []interface{}{

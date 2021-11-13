@@ -1,9 +1,9 @@
 package student
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/api/student/class"
-	"gitea.com/liushihao/gostd/internal/data/api/student/grades"
-	userinfo "gitea.com/liushihao/gostd/internal/data/api/student/user-info"
+	"github.com/liushihao/gostd/internal/data/api/student/class"
+	"github.com/liushihao/gostd/internal/data/api/student/grades"
+	userinfo "github.com/liushihao/gostd/internal/data/api/student/user-info"
 )
 
 type API struct {

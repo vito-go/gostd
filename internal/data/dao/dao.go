@@ -5,7 +5,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"gitea.com/liushihao/gostd/conf"
+	"github.com/liushihao/gostd/conf"
 )
 
 type Dao struct {

@@ -1,11 +1,11 @@
 package logic
 
 import (
-	"gitea.com/liushihao/gostd/conf"
-	"gitea.com/liushihao/gostd/internal/data/api/student"
-	"gitea.com/liushihao/gostd/internal/data/api/teacher"
-	"gitea.com/liushihao/gostd/logic/httpserver"
-	"gitea.com/liushihao/gostd/logic/myrpc"
+	"github.com/liushihao/gostd/conf"
+	"github.com/liushihao/gostd/internal/data/api/student"
+	"github.com/liushihao/gostd/internal/data/api/teacher"
+	"github.com/liushihao/gostd/logic/httpserver"
+	"github.com/liushihao/gostd/logic/myrpc"
 )
 
 type App struct {

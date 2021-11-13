@@ -4,11 +4,12 @@ type classRepo struct {
 	db *studentDB
 }
 
+func (c *classRepo) TableName() string {
+	return "class"
+}
 func NewClassRepo(db *studentDB) *classRepo {
 	return &classRepo{db: db}
 }
-
-const ClassTableName = "class"
 
 type ClassModel struct {
 	ID       int64

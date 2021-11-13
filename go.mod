@@ -1,4 +1,4 @@
-module gitea.com/liushihao/gostd
+module github.com/liushihao/gostd
 
 go 1.17
 

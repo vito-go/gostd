@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"sync"
 
-	"gitea.com/liushihao/gostd/logic/httpserver/resp"
-	"gitea.com/liushihao/gostd/pkg/mylog"
+	"github.com/liushihao/gostd/logic/httpserver/resp"
+	"github.com/liushihao/gostd/pkg/mylog"
 
 	"github.com/go-redis/redis/v8"
 
-	"gitea.com/liushihao/gostd/internal/data/api/student"
-	"gitea.com/liushihao/gostd/internal/data/dberr"
+	"github.com/liushihao/gostd/internal/data/api/student"
+	"github.com/liushihao/gostd/internal/data/dberr"
 )
 
 type File struct {

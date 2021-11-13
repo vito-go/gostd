@@ -1,7 +1,7 @@
 package teacher
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/api/teacher/info"
+	"github.com/liushihao/gostd/internal/data/api/teacher/info"
 )
 
 type API struct {

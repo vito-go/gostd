@@ -1,7 +1,7 @@
 package info
 
 import (
-	"gitea.com/liushihao/gostd/internal/data/dao/teacherdao"
+	"github.com/liushihao/gostd/internal/data/dao/teacherdao"
 )
 
 type Cli struct {
