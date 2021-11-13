@@ -4,7 +4,7 @@
 
 ## 用法
 
-`import _ "gitea.com/liushihao/daemon"` 
+`import _ "github.com/liushihao1993/daemon"`
 运行时候添加命令行参数  `-daemon`
 示例:
 hello_world.go
@@ -17,7 +17,7 @@ import (
 	"strconv"
 	"time"
 
-	_ "gitea.com/liushihao/daemon"
+	_ "github.com/liushihao1993/daemon"
 )
 
 func main() {

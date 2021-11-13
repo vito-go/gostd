@@ -4,7 +4,7 @@ runs the computer program as a background process.
 
 ## Usage
 
-just `import _ "gitea.com/liushihao/daemon"` in the program and run with command argument `-daemon`
+just `import _ "github.com/liushihao1993/daemon"` in the program and run with command argument `-daemon`
 For example:  
 hello_world.go
 
@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"time"
 
-	_ "gitea.com/liushihao/daemon"
+	_ "github.com/liushihao1993/daemon"
 )
 
 func main() {
