@@ -22,7 +22,7 @@ import (
 func main() {
 	// app.yaml可以配置为软链接 并且加入gitignore。 服务器单独配置app.yaml
 	envPath := flag.String("env", "cmd/server/app.yaml", "指定配置文件")
-	out := flag.Bool("out", false, "是否为标准输出")
+	out := flag.Bool("out", true, "是否为标准输出") // 服务器部署需要使out=0或者out=false
 	flag.Parse()
 	// //////////////////
 	cfg, err := conf.NewCfg(conf.Env(*envPath))

@@ -9,6 +9,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/liushihao/gostd/internal/data/dberr"
+	"github.com/liushihao/gostd/pkg/sqlutil"
 )
 
 const UserInfoTableName = "user_info"
@@ -42,7 +43,7 @@ func (u *userInfoRepo) GetInfoByID(ctx context.Context, id int64) (*UserInfoMode
 }
 
 func rowsToModel(rows *sql.Rows) (*UserInfoModel, error) {
-	b, err := rowsToJsonB(rows)
+	b, err := sqlutil.RowsToJsonB(rows)
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
@@ -52,23 +53,4 @@ func rowsToModel(rows *sql.Rows) (*UserInfoModel, error) {
 		return nil, err
 	}
 	return &m, err
-}
-func rowsToJsonB(rows *sql.Rows) ([]byte, error) {
-	cols, err := rows.Columns()
-	if err != nil {
-		return nil, err
-	}
-	scans := make([]interface{}, len(cols))
-	for n := range scans {
-		scans[n] = new(interface{})
-	}
-	err = rows.Scan(scans...)
-	var resultMap = make(map[string]interface{})
-	if err != nil {
-		return nil, err
-	}
-	for n, col := range cols {
-		resultMap[col] = *scans[n].(*interface{})
-	}
-	return json.Marshal(resultMap)
 }

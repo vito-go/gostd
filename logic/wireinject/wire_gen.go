@@ -7,6 +7,7 @@
 package wireinject
 
 import (
+	"github.com/google/wire"
 	"github.com/liushihao/gostd/conf"
 	"github.com/liushihao/gostd/internal/data/api/student"
 	"github.com/liushihao/gostd/internal/data/api/student/class"
@@ -20,7 +21,6 @@ import (
 	"github.com/liushihao/gostd/logic"
 	"github.com/liushihao/gostd/logic/httpserver"
 	"github.com/liushihao/gostd/logic/myrpc"
-	"github.com/google/wire"
 )
 
 // Injectors from wire.go:
