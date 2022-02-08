@@ -1,0 +1,22 @@
+http_server:
+  port: 8090
+  mode: debug # 同gin的mode
+  read_timeout: 3000  # 毫秒
+  write_timeout: 3000  # 毫秒
+# 可以配置不同等级的log日志
+log_path:
+  info: open-blog.log
+  err: open-blog-err.log
+rpc_server:
+  port: 18090
+rpc_client:
+  addr: 127.0.0.1:18000
+  codec: gob
+database:
+  user:
+    dsn: postgres://127.0.0.1:5432/student?&sslmode=disable
+    driver_name: postgres # 支持mysql
+redis:
+  addr: 127.0.0.1:6379 #服务器
+  password: 123456
+  db: 0
