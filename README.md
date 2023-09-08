@@ -14,6 +14,7 @@ An open source blog system,  pured written by go programming language.
 - 无需nohup命令，自带支持后台运行，运行添加-daemon参数（仅限unix平台）
 - 所有的启动入口从读取一个环境配置文件开始
 - 所有的链接、初始化均显示进行，通过wire工具自动生成InitApp方法
+    - 2023-09-08: golang最佳实践：不推荐使用wire，除了提升代码复杂度，没有更多的益处
 - 支持微服务架构拆分（项目充分解藕、内聚合）
 
 - 业务逻辑曾只允许通过repo调取dao，不允许直接操作db。
